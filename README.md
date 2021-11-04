@@ -20,8 +20,16 @@ Prefix: `p!`
 	
 - catalog-search [Text]
 	└ Search a most relevant result of catalog item from provided Text.
+	
+- leaderboard [Category(optional)] [page number(optional)]
+ 	└ Fetch Polytoria Leaderboard.
 
 **Credits**
 	
 Polytoria API Docs: https://api.polytoria.com/docs
 Detailed Polytoria API Docs: https://github.com/N00bRobloxian09/polytoria-web-apis
+
+**Contact**
+
+Discord Tag: DevPixels#5746
+Discord Server: https://discord.gg/vRZfkHW3rA
