@@ -131,7 +131,7 @@ client.on("message", message => {
 
       let processcolor = '#fe5953'
 
-      let buyemoji = "<:Buy_0_0:905416708955701300><:Buy_1_0:905416709505167380><:Buy_2_0:905416709119307809><:Buy_3_0:905416709475794964>\n<:Buy_0_1:905416709492604928><:Buy_1_1:905416709261889577><:Buy_2_1:905416709538738176><:Buy_3_1:905416709794590750>"
+      let buyemoji = "Buy!"
 
       if (locatedthing["Currency"] == "Bricks") {
         processemoji = "<:brick:905405352101687337>"
@@ -211,7 +211,6 @@ client.on("message", message => {
             if (statuscode2 == 404) {
               ProcessImage = 'https://polytoria.com/assets/img/game_unavail.png'
             }
-
             const embed1 = new MessageEmbed()
             .setTitle(data["Name"])
             .setURL("https://polytoria.com/games/" + RandomizedGameId.toString())
@@ -225,6 +224,7 @@ client.on("message", message => {
             .setFooter("Tried: " + TriedToget)
             message.channel.send('',embed1)
             message.channel.stopTyping();
+            return
         })
 
       return
