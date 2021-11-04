@@ -35,6 +35,7 @@ const HelpEmbed = new MessageEmbed()
         { name: 'random-game [id limit(optional)]', value: '└ Find Random game on polytoria',inline: false },
         { name: 'random-catalog [id limit(optional)]', value: '└ Find Random Catalog Item on polytoria',inline: false },
         { name: 'lookup [username]', value: '└ Lookup User Infomation',inline: false },
+        { name: 'leaderboard [Category(optional)] [page number(optional)]', value: '└ Fetch Leaderboard',inline: false },
 
         )
         .setFooter("Made by DevPixels. Contact me at DevPixels#5746")
@@ -179,25 +180,52 @@ client.on("message", message => {
     function DidAlittlerandomgame() {
       TriedToget = TriedToget + 1
       let RandomizedGameId = getRandomInt(idlimit) + 1
-      RequestAPINormal('https://polytoria.com/assets/thumbnails/games/' + RandomizedGameId.toString() + '.png',function(data,statuscode) {
+      RequestAPIJSON('https://api.polytoria.com/v1/games/info?id=' + RandomizedGameId.toString(),function(data,statuscode) {
         if (TriedToget >= 30) {
           message.channel.send("Uh oh... I couldn't find the game because of I tried too many time!(Tried for 30 times). Please run the command again.")
           return
         }   
 
-      if (statuscode == 404) {
+      if (statuscode == 404 || typeof(data) == "undefined") {
+            DidAlittlerandomgame()
+            return
+          }
+          
+          if (data["Active"] == false) {
             DidAlittlerandomgame()
             return
           }
 
-      const embed1 = new MessageEmbed()
-      .setTitle("Join Game")
-      .setURL("https://polytoria.com/games/" + RandomizedGameId.toString())
-      .setColor('#fe5953')
-      .setImage('https://polytoria.com/assets/thumbnails/games/' + RandomizedGameId + '.png')
-      .setFooter("Tried: " + TriedToget)
-      message.channel.send('',embed1)
-      message.channel.stopTyping();
+          let ProcessDescription = data["Description"]
+
+          if (ProcessDescription == "") {
+            ProcessDescription = "No Description Set"
+          }
+
+
+
+          RequestAPINormal('https://polytoria.com/assets/thumbnails/games/' + RandomizedGameId + '.png',function(data2,statuscode2) {
+
+            let ProcessImage = 'https://polytoria.com/assets/thumbnails/games/' + RandomizedGameId + '.png'
+
+            if (statuscode2 == 404) {
+              ProcessImage = 'https://polytoria.com/assets/img/game_unavail.png'
+            }
+
+            const embed1 = new MessageEmbed()
+            .setTitle(data["Name"])
+            .setURL("https://polytoria.com/games/" + RandomizedGameId.toString())
+            .setDescription("*" + ProcessDescription + "*")
+            .addFields(
+              { name: 'Created At', value: `${data["CreatedAt"]}`,inline: true },
+              { name: 'Updated At', value: `${data["UpdatedAt"]}`,inline: true },
+              )
+            .setColor('#fe5953')
+            .setImage(ProcessImage)
+            .setFooter("Tried: " + TriedToget)
+            message.channel.send('',embed1)
+            message.channel.stopTyping();
+        })
 
       return
     })
@@ -224,19 +252,24 @@ client.on("message", message => {
     function DidAlittlerandomCatalog() {
       TriedToget = TriedToget + 1
       let RandomizedGameId = getRandomInt(idlimit) + 1
-      RequestAPINormal('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId.toString() + '.png',function(data,statuscode) {
+      RequestAPIJSON('https://api.polytoria.com/v1/asset/info?id=' + RandomizedGameId.toString(),function(data,statuscode) {
       if (TriedToget >= 30) {
         message.channel.send("Uh oh... I couldn't find the catalog item because of I tried too many time!(Tried for 30 times). Please run the command again.")
         return
       }    
       
-      if (statuscode == 404) {
-            DidAlittlerandomCatalog()
-            return
-          }
+      if (statuscode == 404 || typeof(data) == "undefined") {
+        DidAlittlerandomCatalog()
+        return
+      }
+
+      if (data["moderation_status"] !== "ACCEPTED") {
+        DidAlittlerandomCatalog()
+        return
+      }
 
       const embed1 = new MessageEmbed()
-      .setTitle("Buy Item")
+      .setTitle(data["name"])
       .setURL("https://polytoria.com/shop/" + RandomizedGameId.toString())
       .setColor('#fe5953')
       .setImage('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId + '.png')
@@ -254,6 +287,50 @@ client.on("message", message => {
     if (!message.guild) { return }
 
       message.channel.send("🍪")
+  }
+
+  if (command === "leaderboard") {
+    if (!message.guild) { return }
+
+    let reqtype = ""
+
+    if (args[1]) {
+      reqtype = "?c=" + args[1]
+    }
+
+
+    if (args[2] && args[1]) {
+      reqtype = "?c=" + args[1] + "&p=" + args[2]
+    }
+
+    RequestAPIJSON("https://polytoria.com/api/fetch/leaderboard" + reqtype,function(data,statuscode){
+      let DescProcess = ""
+      let counter = 1
+      for (const [key, value] of Object.entries(data)) {
+        let InnerProcess = ""
+        if (counter == 1) {
+          InnerProcess = "🥇 " + InnerProcess 
+        }
+        if (counter == 2) {
+          InnerProcess = "🥈 " + InnerProcess 
+        }
+        if (counter == 3) {
+          InnerProcess = "🥉 " + InnerProcess 
+        }
+
+        InnerProcess = InnerProcess + "**" + value["username"] + "** | `" + value["statistic"] + "`\n"
+        DescProcess = DescProcess + InnerProcess
+        counter = counter + 1
+      }
+
+      const embed1 = new MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle("Polytoria Leaderboard")
+      .setDescription("Username | Score\n\n" + DescProcess)
+      .setFooter("You can also provide Category(networth, posts, comments, views, sales) and Page Number")
+
+      message.channel.send("",embed1)
+    })
   }
 
   if (command === "lookup") {
