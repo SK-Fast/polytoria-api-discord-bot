@@ -376,13 +376,13 @@ client.on("message", message => {
         let RankData = ""
 
         if (data["Rank"] == "ADMINISTRATOR") {
-          RankData = "🛠 This user is a staff member\n" 
+          RankData = "<:staff:906010778165973022> This user is a staff member\n" 
         }
 
         let AnotherData = ""
 
         if (data["MembershipType"] == "PRO_UNLIMITED") {
-          AnotherData = "⭐ This user is a pro member!\n" 
+          AnotherData = "<:ProMember:906016237748879392> This user is a pro member!\n" 
         }
 
 
