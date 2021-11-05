@@ -15,6 +15,7 @@ const {Client,MessageEmbed,Attachment} = require("discord.js")
 const client = new Client()
 const dotenv = require("dotenv")
 let isNaN = require('is-nan');
+const talkedRecently = new Set();
 
 dotenv.config()
 
@@ -25,6 +26,8 @@ dotenv.config()
 const prefix = 'p!' // Bot s' Default Prefix
 
 const TOKEN = process.env.TOKEN // Bot s' Token
+
+const CooldownTime = 3000
 
 const HelpEmbed = new MessageEmbed()
      .setColor('#fe5953')
@@ -90,6 +93,11 @@ client.on("message", message => {
 
     if (!message.content.startsWith(prefix)) return; // Check if the message start with prefix
     if (!message.guild) { return } // Check if the message wasn't in DM
+	
+	if (talkedRecently.has(message.author.id)) {
+	     message.channel.send("Please wait until using another command!(" + CooldownTime / 1000 + " per command)");
+	     return
+	}
 
   const args = message.content.trim().split(/ +/g);
   const command = args[0].slice(prefix.length).toLowerCase(); // case INsensitive, without prefix
@@ -391,7 +399,12 @@ client.on("message", message => {
 
     }
 
- 
+	// Add Cooldown
+     talkedRecently.add(message.author.id);
+        setTimeout(() => {
+		// Remove After Cooldown ends
+          talkedRecently.delete(message.author.id);
+        }, CooldownTime);
   
 })
 
