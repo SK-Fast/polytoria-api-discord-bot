@@ -379,7 +379,7 @@ client.on("message", message => {
           RankData = "<:staff:906010778165973022> This user is a staff member\n" 
         }
 	      
-	 if (data["ID"] == 307934245215535104 || data["ID"] == 632047150838186004) {
+	 if (data["ID"] == 16342 || data["ID"] == 7348) {
           RankData = RankData + "<:troll:905997754868854855> This user is one of Polytoria API bot creator, mad respecc\n" 
         }
 
