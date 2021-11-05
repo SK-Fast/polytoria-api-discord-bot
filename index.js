@@ -154,7 +154,7 @@ client.on("message", message => {
         let processmessage = ""
   
         if (locatedthing["is_limited"]  == 1) {
-          processmessage = "⭐ Limited Item\n"
+          processmessage = "<:ProMember:906016237748879392> Limited Item\n"
         }
   
         let buytext = "["+ buyemoji +"](https://polytoria.com/shop/" + locatedthing["id"] + ")"
@@ -377,6 +377,10 @@ client.on("message", message => {
 
         if (data["Rank"] == "ADMINISTRATOR") {
           RankData = "<:staff:906010778165973022> This user is a staff member\n" 
+        }
+	      
+	 if (data["ID"] == 307934245215535104 || data["ID"] == 632047150838186004) {
+          RankData = RankData + "<:troll:905997754868854855> This user is one of Polytoria API bot creator, mad respecc\n" 
         }
 
         let AnotherData = ""
