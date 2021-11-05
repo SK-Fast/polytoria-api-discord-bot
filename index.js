@@ -137,40 +137,47 @@ client.on("message", message => {
 
       let locatedthing = data[0]
 
-      let proceesscreator = "By: [" + locatedthing["CreatorName"] + "](https://polytoria.com/user/" + locatedthing["CreatorID"] + ")"
+      RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + locatedthingp["AssetID"],function(data2,statuscode2){
+        let proceesscreator = "By: [" + locatedthing["CreatorName"] + "](https://polytoria.com/user/" + locatedthing["CreatorID"] + ")"
 
-      let processemoji = "<:stud:905987085347983411>>"
-
-      let processcolor = '#fe5953'
-
-      let buyemoji = "Buy!"
-
-      if (locatedthing["Currency"] == "Bricks") {
-        processemoji = "<:brick:905987077995376640>"
-        processcolor = "#92e714"
-      }
-
-      let processmessage = ""
-
-      if (locatedthing["Limited"]  == true) {
-        processmessage = "⭐ Limited Item\n"
-      }
-
-      let buytext = "["+ buyemoji +"](https://polytoria.com/shop/" + locatedthing["AssetID"] + ")"
-
-
-      const embed1 = new MessageEmbed()
-      .setTitle(locatedthing["AssetName"])
-      .setURL("https://polytoria.com/shop/" + locatedthing["AssetID"])
-      .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + locatedthing["Price"] + "\n\n" + buytext)
-      .setColor(processcolor)
-      .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + locatedthing["AssetID"] + '.png')
-
-      
-      message.channel.send('',embed1)
-      message.channel.stopTyping();
-
-  })
+        let processemoji = "<:stud:905405361576628246>"
+  
+        let processcolor = '#fe5953'
+  
+        let buyemoji = "Buy!"
+  
+        if (locatedthing["Currency"] == "Bricks") {
+          processemoji = "<:brick:905405352101687337>"
+          processcolor = "#92e714"
+        }
+  
+        let processmessage = ""
+  
+        if (locatedthing["Limited"]  == true) {
+          processmessage = "⭐ Limited Item\n"
+        }
+  
+        let buytext = "["+ buyemoji +"](https://polytoria.com/shop/" + locatedthing["AssetID"] + ")"
+  
+  
+        const embed1 = new MessageEmbed()
+        .setTitle(locatedthing["AssetName"])
+        .setURL("https://polytoria.com/shop/" + locatedthing["AssetID"])
+        .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + locatedthing["Price"] + "\n\n" + buytext)
+        .addFields(
+          { name: 'Created At', value: `${data2["time_created"]}`,inline: true },
+          { name: 'Updated At', value: `${data2["time_updated"]}`,inline: true },
+          { name: 'Sales', value: data2["sales"],inline: false },
+          { name: 'Favourites', value: data2["favourites"],inline: true },
+          )
+        .setColor(processcolor)
+        .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + locatedthing["AssetID"] + '.png')
+  
+        
+        message.channel.send('',embed1)
+        message.channel.stopTyping();
+        return
+      })
   }
 
 
