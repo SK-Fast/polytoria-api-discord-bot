@@ -147,7 +147,7 @@ client.on("message", message => {
         let buyemoji = "Buy!"
   
         if (locatedthing["currency"] == "Bricks") {
-          processemoji = "<:brick:905405352101687337>"
+          processemoji = "<:brick:905987077995376640>"
           processcolor = "#92e714"
         }
   
