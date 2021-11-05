@@ -140,7 +140,7 @@ client.on("message", message => {
       RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + locatedthing["id"],function(data2,statuscode2){
         let proceesscreator = "[Creator Profile](https://polytoria.com/user/" + data2["creator"] + ")"
 
-        let processemoji = "<:stud:905405361576628246>"
+        let processemoji = "<:stud:905987085347983411>"
   
         let processcolor = '#fe5953'
   
