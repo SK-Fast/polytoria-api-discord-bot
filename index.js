@@ -121,7 +121,7 @@ client.on("message", message => {
     message.channel.startTyping();
     let thing2search = message.content.replace('p!catalog-search ', '').replace(/ /g, '%20') // Cut off command from thing that user want to search
 
-    RequestAPIJSON('https://polytoria.com/api/fetch/catalog/items?page=0&sort=0&q=' + thing2search,function(data,statuscode) {
+    RequestAPIJSON('https://api.polytoria.com/v1/asset/catalog?page=0&q=' + thing2search,function(data,statuscode) {
       if (typeof(data) == "undefined") { 
         message.channel.send("Not found what're you looking for or API failed")
         message.channel.stopTyping();
