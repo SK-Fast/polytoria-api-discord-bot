@@ -55,6 +55,10 @@ client.on("ready", () => {
 		type: "LISTENING",
 		url: "https://api.polytoria.com"
 	  });
+    console.log("ID: "+  client.user.id)
+    if (client.user.id == '903458894632861706') {
+      prefix = "p2!"
+    }
 })
 
 // Request API and Give out JSON
@@ -596,8 +600,10 @@ client.on("message", message => {
     if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
     StartType(message)
 
+    let thing2search = message.content.replace('p!lookup ', '').replace(/ /g, '%20')
 
-      RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + args[1],function(data){
+
+      RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + thing2search,function(data){
         if (typeof(data) == "undefined") { 
           message.channel.send("This user doesn't exist or API failed!")
           message.channel.stopTyping();
