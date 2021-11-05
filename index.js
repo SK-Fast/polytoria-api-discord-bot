@@ -137,8 +137,8 @@ client.on("message", message => {
 
       let locatedthing = data[0]
 
-      RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + locatedthingp["AssetID"],function(data2,statuscode2){
-        let proceesscreator = "By: [" + locatedthing["CreatorName"] + "](https://polytoria.com/user/" + locatedthing["CreatorID"] + ")"
+      RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + locatedthing["id"],function(data2,statuscode2){
+        let proceesscreator = "[Creator Profile](https://polytoria.com/user/" + data2["creator"] + ")"
 
         let processemoji = "<:stud:905405361576628246>"
   
@@ -146,38 +146,39 @@ client.on("message", message => {
   
         let buyemoji = "Buy!"
   
-        if (locatedthing["Currency"] == "Bricks") {
+        if (locatedthing["currency"] == "Bricks") {
           processemoji = "<:brick:905405352101687337>"
           processcolor = "#92e714"
         }
   
         let processmessage = ""
   
-        if (locatedthing["Limited"]  == true) {
+        if (locatedthing["is_limited"]  == 1) {
           processmessage = "⭐ Limited Item\n"
         }
   
-        let buytext = "["+ buyemoji +"](https://polytoria.com/shop/" + locatedthing["AssetID"] + ")"
+        let buytext = "["+ buyemoji +"](https://polytoria.com/shop/" + locatedthing["id"] + ")"
   
   
         const embed1 = new MessageEmbed()
-        .setTitle(locatedthing["AssetName"])
-        .setURL("https://polytoria.com/shop/" + locatedthing["AssetID"])
-        .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + locatedthing["Price"] + "\n\n" + buytext)
+        .setTitle(data2["name"])
+        .setURL("https://polytoria.com/shop/" + locatedthing["id"])
+        .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + locatedthing["price"] + "\n\n" + buytext)
         .addFields(
-          { name: 'Created At', value: `${data2["time_created"]}`,inline: true },
-          { name: 'Updated At', value: `${data2["time_updated"]}`,inline: true },
+          { name: 'Created At', value: `<t:${data2["time_created"]}>`,inline: true },
+          { name: 'Updated At', value: `<t:${data2["time_updated"]}>`,inline: true },
           { name: 'Sales', value: data2["sales"],inline: false },
           { name: 'Favourites', value: data2["favourites"],inline: true },
           )
         .setColor(processcolor)
-        .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + locatedthing["AssetID"] + '.png')
+        .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + data2["id"] + '.png')
   
         
         message.channel.send('',embed1)
         message.channel.stopTyping();
         return
-      })})
+      })
+    })
   }
 
 
