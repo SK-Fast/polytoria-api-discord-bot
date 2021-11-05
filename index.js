@@ -48,7 +48,7 @@ process.on('uncaughtException', function (err) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("to api.polytoria.com", {
+  client.user.setActivity("api.polytoria.com", {
 		type: "LISTENING",
 		url: "https://api.polytoria.com"
 	  });
