@@ -24,6 +24,9 @@ Prefix: `p!`
 - leaderboard [Category(optional)] [page number(optional)]
  	└ Fetch Polytoria Leaderboard.
 
+- inspect-avatar [Username]
+ 	└ Lookup Detailed information about User Avatar.
+
 **Credits**
 	
 Polytoria API Docs: https://api.polytoria.com/docs
@@ -31,5 +34,5 @@ Detailed Polytoria API Docs: https://github.com/N00bRobloxian09/polytoria-web-ap
 
 **Contact**
 
-Discord Tag: DevPixels#5746
+Discord Tag: DevPixels#5746, StarManTheGamer#0001
 Discord Server: https://discord.gg/vRZfkHW3rA
