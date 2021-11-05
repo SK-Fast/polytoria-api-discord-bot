@@ -48,6 +48,10 @@ process.on('uncaughtException', function (err) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
+  client.user.setActivity("to api.polytoria.com", {
+		type: "LISTENING",
+		url: "https://api.polytoria.com"
+	  });
 })
 
 // Request API and Give out JSON
@@ -392,4 +396,4 @@ client.on("message", message => {
 })
 
 // Login bot
-client.login(TOKEN)
+client.login('TOKEN')
