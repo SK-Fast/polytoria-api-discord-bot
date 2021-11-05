@@ -21,7 +21,7 @@ dotenv.config()
 
 // Customable Variables //
 
-const prefix = 'p!' // Bot s' Default Prefix
+const prefix = 'p2!' // Bot s' Default Prefix
 
 const TOKEN = process.env.TOKEN // Bot s' Token
 
@@ -85,6 +85,15 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+function StartType(message) {
+  message.channel.startTyping()
+
+  setTimeout(() => {
+    message.channel.stopTyping()
+
+  }, 10000);
+}
+
 // On Message sent
 client.on("message", message => {
 
@@ -118,7 +127,7 @@ client.on("message", message => {
 
   if (command === "catalog-search") {
     if (!args[1]) { message.channel.send("Missing args 1 | Please type what do you want to search!"); return }
-    message.channel.startTyping();
+    StartType(message)
     let thing2search = message.content.replace('p!catalog-search ', '').replace(/ /g, '%20') // Cut off command from thing that user want to search
 
     RequestAPIJSON('https://api.polytoria.com/v1/asset/catalog?page=0&q=' + thing2search,function(data,statuscode) {
@@ -195,7 +204,7 @@ client.on("message", message => {
         idlimit = args[1]
       }
     }
-    message.channel.startTyping();
+    StartType(message)
 
     function DidAlittlerandomgame() {
       TriedToget = TriedToget + 1
@@ -269,7 +278,7 @@ client.on("message", message => {
         idlimit = args[1]
       }
     }
-    message.channel.startTyping();
+    StartType(message)
 
     function DidAlittlerandomCatalog404() {
       TriedToget = TriedToget + 1
@@ -319,7 +328,7 @@ client.on("message", message => {
         idlimit = args[1]
       }
     }
-    message.channel.startTyping();
+    StartType(message)
 
     function DidAlittlerandomCatalog() {
       TriedToget = TriedToget + 1
@@ -365,7 +374,7 @@ client.on("message", message => {
 
   if (command === "inspect-avatar") {
     if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
-    message.channel.startTyping();
+    StartType(message)
 
     RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + args[1],function(data){
 
@@ -400,7 +409,13 @@ client.on("message", message => {
         hatarray.forEach(function (item, index) {
           RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + item,function(data3,statuscode2){
             Processed = Processed + 1
-            hatnamesarray.push({"ItemName": data3["name"], "ItemID": data3["id"]})
+            if (typeof(data3) == "undefined") {
+              hatnamesarray.push({"ItemName": "Unable to load Name", "ItemID": ""})
+
+            } else {
+              hatnamesarray.push({"ItemName": data3["name"], "ItemID": data3["id"]})
+
+            }
           })
 
         });
@@ -579,7 +594,7 @@ client.on("message", message => {
 
   if (command === "lookup") {
     if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
-    message.channel.startTyping();
+    StartType(message)
 
 
       RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + args[1],function(data){
