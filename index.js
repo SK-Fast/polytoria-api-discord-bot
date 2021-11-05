@@ -21,7 +21,7 @@ dotenv.config()
 
 // Customable Variables //
 
-const prefix = 'p2!' // Bot s' Default Prefix
+const prefix = 'p!' // Bot s' Default Prefix
 
 const TOKEN = process.env.TOKEN // Bot s' Token
 
