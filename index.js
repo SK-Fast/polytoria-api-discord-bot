@@ -131,14 +131,14 @@ client.on("message", message => {
 
       let proceesscreator = "By: [" + locatedthing["CreatorName"] + "](https://polytoria.com/user/" + locatedthing["CreatorID"] + ")"
 
-      let processemoji = "<:stud:905405361576628246>"
+      let processemoji = "<:stud:905987085347983411>>"
 
       let processcolor = '#fe5953'
 
       let buyemoji = "Buy!"
 
       if (locatedthing["Currency"] == "Bricks") {
-        processemoji = "<:brick:905405352101687337>"
+        processemoji = "<:brick:905987077995376640>"
         processcolor = "#92e714"
       }
 
@@ -372,7 +372,7 @@ client.on("message", message => {
 
         const embed1 = new MessageEmbed()
         .setColor('#0099ff')
-        .setTitle(data["Username"] + " s' profile.")
+        .setTitle(data["Username"] + " profile.")
         .setURL('https://polytoria.com/user/' + data["ID"])
         .setDescription(RankData + AnotherData + "\n" + data["Description"])
         .addFields(
