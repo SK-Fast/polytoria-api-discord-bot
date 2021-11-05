@@ -1,11 +1,9 @@
 /* 
-
   Polytoria API Discord bot
      Written by DevPixels, StarManTheGamer
   
      Polytoria Username: DevPixels, bags
      Github: SK-Fast, StarManTheGamer
-
 */
 
 // Get dependencies and setup Required Stuff //
@@ -40,9 +38,10 @@ const HelpEmbed = new MessageEmbed()
         { name: 'lookup [username]', value: '└ Lookup User Infomation',inline: false },
         { name: 'leaderboard [Category(optional)] [page number(optional)]', value: '└ Fetch Leaderboard',inline: false },
         { name: 'inspect-avatar [Username]', value: '└ Give details about user avatar',inline: false },
+        { name: '404-random-catalog [id limit(optional)]', value: '└ Gives random Hidden Catalog item(It will be old render mostly)',inline: false },
 
         )
-        .setFooter("Made by DevPixels. Contact me at DevPixels#5746")
+        .setFooter("Made by DevPixels and bags. Contact me at DevPixels#5746, StarManTheGamer#0001")
 
 /////////////////////////////
 
@@ -204,6 +203,8 @@ client.on("message", message => {
       RequestAPIJSON('https://api.polytoria.com/v1/games/info?id=' + RandomizedGameId.toString(),function(data,statuscode) {
         if (TriedToget >= 30) {
           message.channel.send("Uh oh... I couldn't find the game because of I tried too many time!(Tried for 30 times). Please run the command again.")
+          message.channel.stopTyping();
+
           return
         }   
 
@@ -254,6 +255,56 @@ client.on("message", message => {
     DidAlittlerandomgame()
   }
 
+  if (command === "404-random-catalog") {
+    if (!message.guild) { return }
+    let TriedToget = 0
+
+    let idlimit = 1000
+    if (args[1]) {
+      if (isNaN(args[1]) == false) {
+        if (parseInt(args[1]) >= 6000) {
+          message.channel.send("I couldn't find the catalog item with that much value!")
+          return
+        }
+        idlimit = args[1]
+      }
+    }
+    message.channel.startTyping();
+
+    function DidAlittlerandomCatalog404() {
+      TriedToget = TriedToget + 1
+      let RandomizedGameId = getRandomInt(idlimit) + 1
+      RequestAPINormal('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId.toString() + '.png',function(data,statuscode) {
+      if (TriedToget >= 30) {
+        message.channel.send("Uh oh... I couldn't find the catalog item because of I tried too many time!(Tried for 30 times). Please run the command again.")
+        message.channel.stopTyping();
+
+        return
+      }    
+      
+      if (statuscode == 404) {
+        DidAlittlerandomCatalog404()
+        return
+      }
+
+
+      RequestAPIJSON('https://api.polytoria.com/v1/asset/info?id=' + RandomizedGameId.toString(),function(data2,statuscode2) {
+        if (statuscode2 == 404 || typeof(data2) == "undefined") {
+          message.channel.send('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId.toString() + '.png')
+          message.channel.stopTyping();
+          return
+        } else {
+          DidAlittlerandomCatalog404()
+          return
+        }
+      })
+
+      return
+    })
+    }
+    DidAlittlerandomCatalog404()
+  }
+
   if (command === "random-catalog") {
     if (!message.guild) { return }
     let TriedToget = 0
@@ -276,6 +327,8 @@ client.on("message", message => {
       RequestAPIJSON('https://api.polytoria.com/v1/asset/info?id=' + RandomizedGameId.toString(),function(data,statuscode) {
       if (TriedToget >= 30) {
         message.channel.send("Uh oh... I couldn't find the catalog item because of I tried too many time!(Tried for 30 times). Please run the command again.")
+        message.channel.stopTyping();
+
         return
       }    
       
@@ -591,4 +644,4 @@ client.on("message", message => {
 })
 
 // Login bot
-client.login('TOKEN')
+client.login(TOKEN)
