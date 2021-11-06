@@ -38,6 +38,7 @@ const CommandsRequire = {
   "lookup" : require("./commands/lookup.js"),
   "stud2brick": require("./commands/stud2brick.js"),
   "brick2stud": require("./commands/brick2stud.js"),
+  "super-secret-command": require("./commands/super-secret-command.js"),
 }
 
 /////////////////////////////
