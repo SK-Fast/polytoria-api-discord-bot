@@ -39,6 +39,7 @@ const HelpEmbed = new MessageEmbed()
         { name: 'leaderboard [Category(optional)] [page number(optional)]', value: '└ Fetch Leaderboard',inline: false },
         { name: 'inspect-avatar [Username]', value: '└ Give details about user avatar',inline: false },
         { name: '404-random-catalog [id limit(optional)]', value: '└ Gives random Hidden Catalog item(It will be old render mostly)',inline: false },
+        { name: 'random-user [id limit(optional)]', value: '└ Random Users in Polytoria',inline: false },
 
         )
         .setFooter("Made by DevPixels and bags. Contact me at DevPixels#5746, StarManTheGamer#0001")
@@ -51,7 +52,7 @@ process.on('uncaughtException', function (err) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("p!help", {
+  client.user.setActivity("api.polytoria.com", {
 		type: "LISTENING",
 		url: "https://api.polytoria.com"
 	  });
@@ -69,6 +70,7 @@ async function RequestAPIJSON(APILink,func) {
     }
   })
   .then(data => {
+
     func(data,restatus)
   })
 }
@@ -120,6 +122,10 @@ client.on("message", message => {
 
   if (command === "help") {   
       message.channel.send("",HelpEmbed)
+  }
+
+  if (command === "echo") {
+    message.channel.send("```" + args[1] + "```")
   }
 
   if (command === "catalog-search") {
@@ -261,6 +267,90 @@ client.on("message", message => {
     DidAlittlerandomgame()
   }
 
+  if (command === "random-user") {
+    let TriedToget = 0
+
+    let idlimit = 1000
+    if (args[1]) {
+      if (isNaN(args[1]) == false) {
+        if (parseInt(args[1]) >= 4000) {
+          message.channel.send("I couldn't find the game with that much value!")
+          return
+        }
+        idlimit = args[1]
+      }
+    }
+    StartType(message)
+
+    function DidAlittlerandomUser() {
+      TriedToget = TriedToget + 1
+      let RandomizedGameId = getRandomInt(idlimit) + 1
+      RequestAPIJSON('https://api.polytoria.com/v1/users/user?id=' + RandomizedGameId.toString(),function(data,statuscode) {
+        if (TriedToget >= 30) {
+          message.channel.send("Uh oh... I couldn't find the game because of I tried too many time!(Tried for 30 times). Please run the command again.")
+          message.channel.stopTyping();
+
+          return
+        }   
+
+      if (statuscode == 404 || typeof(data) == "undefined") {
+        DidAlittlerandomUser()
+            return
+          }
+          
+
+          if (typeof(data) == "undefined") { 
+            message.channel.send("This user doesn't exist or API failed!")
+            message.channel.stopTyping();
+  
+            return
+          }
+          if (data["Success"] == false) {
+            message.channel.send("This user doesn't exist!")
+            message.channel.stopTyping();
+  
+            return
+          }
+  
+          let RankData = ""
+  
+          if (data["Rank"] == "ADMINISTRATOR") {
+            RankData = "<:staff:906010778165973022> This user is a staff member\n" 
+          }
+          
+     if (data["ID"] == 16342 || data["ID"] == 7348) {
+            RankData = RankData + "<:troll:905997754868854855> This user is one of Polytoria API bot creator, mad respecc\n" 
+          }
+  
+          let AnotherData = ""
+  
+          if (data["MembershipType"] == "PRO_UNLIMITED") {
+            AnotherData = "<:ProMember:906016237748879392> This user is a pro member!\n" 
+          }
+  
+  
+          const embed1 = new MessageEmbed()
+          .setColor('#0099ff')
+          .setTitle(data["Username"] + " profile.")
+          .setURL('https://polytoria.com/user/' + data["ID"])
+          .setDescription(RankData + AnotherData + "\n" + data["Description"])
+          .addFields(
+            { name: 'UserId', value: data["ID"],inline: true },
+            { name: 'Joined at', value: `<t:${data["JoinedAt"]}>`,inline: true },
+            { name: 'Last seen', value: `<t:${data["LastSeenAt"]}>`,inline: false },
+            { name: 'Trade Value', value: data["TradeValue"],inline: true },
+          )
+          .setThumbnail('https://polytoria.com/assets/thumbnails/avatars/headshots/' + data["AvatarHash"] + ".png")
+            .setFooter('Replying to ' + message.author.tag + '(' + message.author.id + ')')
+  
+          message.channel.send("",embed1)
+          message.channel.stopTyping();
+            return
+    })
+    }
+    DidAlittlerandomUser()
+  }
+
   if (command === "404-random-catalog") {
     if (!message.guild) { return }
     let TriedToget = 0
@@ -369,6 +459,11 @@ client.on("message", message => {
       message.channel.send("🍪")
   }
 
+  if (command === "price-logs") {
+    if (!args[1]) { message.channel.send("Missing args 1 | Please type Catalog Item ID!"); return }
+
+  }
+
   if (command === "inspect-avatar") {
     if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
     StartType(message)
@@ -404,16 +499,30 @@ client.on("message", message => {
         let Processlength = hatarray.length
 
         hatarray.forEach(function (item, index) {
-          RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + item,function(data3,statuscode2){
+          // Deprecated Hat vaild checking
+          /*
+          RequestAPINormal("https://api.polytoria.com/v1/asset/info?id=" + item,function(data4,statuscode3) {
+            if (statuscode3 == 200) {
+              console.log("Hat vaild, Passed.")*/
+            RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + item,function(data3,statuscode2){
             Processed = Processed + 1
             if (typeof(data3) == "undefined") {
-              hatnamesarray.push({"ItemName": "Unable to load Name", "ItemID": ""})
+              console.log("Unable to load hat. Continuing...")
+              hatnamesarray.push({"ItemName": "Unable to load Name", "ItemID": "1"})
 
             } else {
               hatnamesarray.push({"ItemName": data3["name"], "ItemID": data3["id"]})
 
             }
-          })
+          })/*} else {
+            Processed = Processed + 1
+
+            console.log("Hat not vaild, Not Passed.")
+
+          }
+
+          }) */
+          
 
         });
         function checkcatalogdata() {
@@ -656,4 +765,4 @@ client.on("message", message => {
 })
 
 // Login bot
-client.login('TOKEN')
+client.login(TOKEN)
