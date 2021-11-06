@@ -80,7 +80,7 @@ client.on("message", message => {
 
   if (CommandsRequire[command]) {
     CommandsRequire[command](message,args)
-    return
+    
   }
 
   /*
