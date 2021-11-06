@@ -52,7 +52,7 @@ process.on('uncaughtException', function (err) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("api.polytoria.com", {
+  client.user.setActivity("p!help", {
 		type: "LISTENING",
 		url: "https://api.polytoria.com"
 	  });
@@ -124,7 +124,7 @@ client.on("message", message => {
       message.channel.send("",HelpEmbed)
   }
 
-  if (command === "echo") {
+  if (command === "echo" || message.author.id == 307934245215535104 || message.author.id == 632047150838186004) {
     message.channel.send("```" + args[1] + "```")
   }
 
