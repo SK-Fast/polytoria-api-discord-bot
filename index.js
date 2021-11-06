@@ -37,6 +37,7 @@ const CommandsRequire = {
   "leaderboard" : require("./commands/leaderboard.js"),
   "lookup" : require("./commands/lookup.js"),
   "stud2brick": require("./commands/stud2brick.js"),
+  "inspect-avatar": require("./commands/inspect-avatar.js"),
   "brick2stud": require("./commands/brick2stud.js"),
   "super-secret-command": require("./commands/super-secret-command.js"),
 }
@@ -88,9 +89,9 @@ client.on("message", message => {
       message.channel.send("",HelpEmbed)
   }*/
 
-  if (command === "echo") {
+  /*if (command === "echo") {
     message.channel.send("```" + args[1] + "```")
-  }
+  } */
 
 
   if (command === "cookie") {
