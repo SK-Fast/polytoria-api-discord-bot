@@ -102,7 +102,6 @@ client.on("message", message => {
 
     if(message.author.bot) return; // Check if the author is bot
 
-
     if (!message.content.startsWith(prefix)) return; // Check if the message start with prefix
     if (!message.guild) { return } // Check if the message wasn't in DM
 	
@@ -124,7 +123,7 @@ client.on("message", message => {
       message.channel.send("",HelpEmbed)
   }
 
-  if (command === "echo" || message.author.id == 307934245215535104 || message.author.id == 632047150838186004) {
+  if (command === "echo") {
     message.channel.send("```" + args[1] + "```")
   }
 
