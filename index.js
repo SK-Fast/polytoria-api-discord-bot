@@ -35,7 +35,9 @@ const CommandsRequire = {
   "404-random-catalog" : require("./commands/404_random_catalog.js"),
   "random-catalog" : require("./commands/random_catalog.js"),
   "leaderboard" : require("./commands/leaderboard.js"),
-  "lookup" : require("./commands/lookup.js")
+  "lookup" : require("./commands/lookup.js"),
+  "stud2brick": require("./commands/stud2brick.js"),
+  "brick2stud": require("./commands/brick2stud.js"),
 }
 
 /////////////////////////////
