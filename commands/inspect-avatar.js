@@ -31,9 +31,11 @@ module.exports = function(message,args) {
         .setTitle(data["Username"] + " Avatar.")
         .setURL('https://polytoria.com/user/' + data["ID"])
         .setThumbnail('https://polytoria.com/assets/thumbnails/avatars/' + data["AvatarHash"] + ".png")
-          .setFooter('Replying to ' + message.author.tag + '(' + message.author.id + ')')
 
         let Processed = 0
+
+        let BrickWasted = 0
+        let StudsWasted = 0
 
         const hatarray = data2["Wearables"]["Hats"]
         const hatnamesarray = []
@@ -54,6 +56,11 @@ module.exports = function(message,args) {
             } else {
               hatnamesarray.push({"ItemName": data3["name"], "ItemID": data3["id"]})
 
+              if (data3["currency"] == "Studs") {
+                StudsWasted = StudsWasted + parseInt(parseInt(data3["price"]))
+              } else {
+                BrickWasted = BrickWasted + parseInt(parseInt(data3["price"]))
+              }
             }
           })/*} else {
             Processed = Processed + 1
@@ -92,6 +99,7 @@ module.exports = function(message,args) {
 
             function catalogprocess7() {
 
+
               let processbodycatalog = ""
 
               processbodycatalog = processbodycatalog + "**Shirt**: [" + processshirt + "]" + "(https://polytoria.com/shop/" + WearableArray["Shirt"] + ")\n"
@@ -111,7 +119,8 @@ module.exports = function(message,args) {
 
               embed1.addField("Wearables",processbodycatalog,false)
               embed1.addField("Body Colors",proceessbodycolors,false)
-
+              embed1.addField("Money Wasted",`**${StudsWasted}** <:stud:905987085347983411> **${BrickWasted}** <:brick:905987077995376640>`,false)
+              embed1.setFooter("Money wasted might be inaccurate due to price changes")
               message.channel.send("",embed1)
               message.channel.stopTyping();
             }
@@ -122,6 +131,11 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Head"],function(data3,statuscode2){
                   processhead = data3["Head"]
+                  if (data3["currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  } else {
+                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                  }
                   catalogprocess7()
                 })
               }
@@ -133,6 +147,11 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["TShirt"],function(data3,statuscode2){
                   processtshirt = data3["name"]
+                  if (data3["currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  } else {
+                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                  }
                   catalogprocess6()
                 })
               }
@@ -144,6 +163,11 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Pants"],function(data3,statuscode2){
                   processpants = data3["name"]
+                  if (data3["currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  } else {
+                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                  }
                   catalogprocess5()
                 })
               }
@@ -155,6 +179,11 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Shirt"],function(data3,statuscode2){
                   processshirt = data3["name"]
+                  if (data3["currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  } else {
+                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                  }
                   catalogprocess4()
                 })
               }
@@ -166,6 +195,11 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Face"],function(data3,statuscode2){
                   processface = data3["name"]
+                  if (data3["currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  } else {
+                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                  }
                   catalogprocess3()
                 })
               }
@@ -176,6 +210,11 @@ module.exports = function(message,args) {
             } else {
               RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Tool"],function(data3,statuscode2){
                 processtool = data3["name"]
+                if (data3["currency"] == "Studs") {
+                  StudsWasted = StudsWasted + parseInt(data3["price"])
+                } else {
+                  BrickWasted = BrickWasted + parseInt(data3["price"])
+                }
                 catalogprocess2()
               })
             }
