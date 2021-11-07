@@ -3,10 +3,12 @@ const {Client,MessageEmbed,Attachment} = require("discord.js")
 module.exports = function(message) {
 
     const HelpEmbed = new MessageEmbed()
-    .setImage('https://polytoria.com/assets/thumbnails/guilds/1.png')
+    .setThumbnail('https://polytoria.com/assets/thumbnails/guilds/1.png')
+    .setURL('https://github.com/SK-Fast/polytoria-api-discord-bot')
      .setColor('#fe5953')
        .setTitle('Polytoria Community Bot')
-      .setDescription('Running: Version 1.0.5')
+       .addField("Version", "Running: Version 1.0.5")
+      .addField("Open-sourced project", "This project is open-sourced. Tap the link above to view the repository.")
        .addFields(
         
 
