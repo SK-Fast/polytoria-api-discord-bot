@@ -9,10 +9,7 @@ module.exports = function(message) {
        .setTitle('Polytoria Community Bot')
        .addField("Version", "Running: Version 1.0.5")
       .addField("Open-sourced project", "This project is open-sourced. Tap the link above to view the repository.")
-       .addFields(
-        
-
-        )
+      .addField("Changelog for 1.0.5", "Coming Soon")
         .setFooter("Made by DevPixels and bags. Contact us at DevPixels#5746, StarManTheGamer#0001")
 
 
