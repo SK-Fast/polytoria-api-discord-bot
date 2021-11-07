@@ -17,6 +17,8 @@ module.exports = function(message) {
         { name: 'random-user [id limit(optional)]', value: '└ Random Users in Polytoria',inline: false },
         { name: 'stud2brick [Amount]', value: '└ Convert Currency from Studs to Bricks',inline: false },
         { name: 'brick2stud [Amount]', value: '└ Convert Currency from Bricks to Studs',inline: false },
+        { name: 'information', value: '└ Information about the bot',inline: false },
+        { name: 'invite', value: '└ Link to invite the bot to your server',inline: false },
 
         )
         .setFooter("Made by DevPixels and bags. Contact me at DevPixels#5746, StarManTheGamer#0001")
