@@ -40,6 +40,7 @@ const CommandsRequire = {
   "inspect-avatar": require("./commands/inspect-avatar.js"),
   "brick2stud": require("./commands/brick2stud.js"),
   "information": require("./commands/information.js"),
+  "invite": require("./commands/invite.js"),
   "super-secret-command": require("./commands/super-secret-command.js"),
 }
 
