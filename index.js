@@ -39,6 +39,7 @@ const CommandsRequire = {
   "stud2brick": require("./commands/stud2brick.js"),
   "inspect-avatar": require("./commands/inspect-avatar.js"),
   "brick2stud": require("./commands/brick2stud.js"),
+  "information": require("./commands/information.js"),
   "super-secret-command": require("./commands/super-secret-command.js"),
 }
 
