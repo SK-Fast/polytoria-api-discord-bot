@@ -4,6 +4,7 @@ module.exports = function(message) {
 
     const HelpEmbed = new MessageEmbed()
      .setColor('#fe5953')
+     .setThumbnail('https://polytoria.com/assets/thumbnails/guilds/1.png')
        .setTitle('Commands')
       .setDescription('Prefix: `p!`')
        .addFields(
