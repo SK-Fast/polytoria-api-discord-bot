@@ -131,11 +131,14 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Head"],function(data3,statuscode2){
                   processhead = data3["Head"]
+                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+
+                   } else {
                   if (data3["currency"] == "Studs") {
                     StudsWasted = StudsWasted + parseInt(data3["price"])
                   } else {
                     BrickWasted = BrickWasted + parseInt(data3["price"])
-                  }
+                  }}
                   catalogprocess7()
                 })
               }
@@ -147,11 +150,14 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["TShirt"],function(data3,statuscode2){
                   processtshirt = data3["name"]
+                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+
+                   } else {
                   if (data3["currency"] == "Studs") {
                     StudsWasted = StudsWasted + parseInt(data3["price"])
                   } else {
                     BrickWasted = BrickWasted + parseInt(data3["price"])
-                  }
+                  }}
                   catalogprocess6()
                 })
               }
@@ -163,11 +169,14 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Pants"],function(data3,statuscode2){
                   processpants = data3["name"]
+                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+
+                   } else {
                   if (data3["currency"] == "Studs") {
                     StudsWasted = StudsWasted + parseInt(data3["price"])
                   } else {
                     BrickWasted = BrickWasted + parseInt(data3["price"])
-                  }
+                  }}
                   catalogprocess5()
                 })
               }
@@ -179,11 +188,14 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Shirt"],function(data3,statuscode2){
                   processshirt = data3["name"]
+                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+
+                   } else {
                   if (data3["currency"] == "Studs") {
                     StudsWasted = StudsWasted + parseInt(data3["price"])
                   } else {
                     BrickWasted = BrickWasted + parseInt(data3["price"])
-                  }
+                  }}
                   catalogprocess4()
                 })
               }
@@ -195,11 +207,14 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Face"],function(data3,statuscode2){
                   processface = data3["name"]
+                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+
+                   } else {
                   if (data3["currency"] == "Studs") {
                     StudsWasted = StudsWasted + parseInt(data3["price"])
                   } else {
                     BrickWasted = BrickWasted + parseInt(data3["price"])
-                  }
+                  }}
                   catalogprocess3()
                 })
               }
