@@ -8,6 +8,7 @@ module.exports = function(message) {
      .setColor('#fe5953')
        .setTitle('Inviting Polytoria Community Bot')
       .addField("Invite", "Thank you for choosing Polytoria Community Bot!")
+      .addField("Permissions", "When you add our bot, it will ask you to use some permissions. Please select all of the options or the bot may not function propertly.")
         .setFooter("Made by DevPixels and bags. Contact us at DevPixels#5746, StarManTheGamer#0001")
 
 
