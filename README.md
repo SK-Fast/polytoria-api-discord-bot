@@ -9,6 +9,12 @@ Prefix: `p!`
  - help
 	└ See list of commands
 	
+- 404-random-catalog
+        └ Sends images of deleted catalog items
+	
+- brick2stud
+        └ Converts bricks to studs
+	
 - lookup [Username]
 	└ Look up User information
 	
