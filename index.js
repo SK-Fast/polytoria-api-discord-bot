@@ -42,6 +42,7 @@ const CommandsRequire = {
   "information": require("./commands/information.js"),
   "invite": require("./commands/invite.js"),
   "super-secret-command": require("./commands/super-secret-command.js"),
+  "random-banner": require("./commands/random-banner.js"),
 }
 
 /////////////////////////////
