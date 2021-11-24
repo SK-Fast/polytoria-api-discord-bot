@@ -1,4 +1,5 @@
 const {Client,MessageEmbed,Attachment} = require("discord.js")
+const { DiscordInteractions } = require("slash-commands");
 
 module.exports = function(message,args) {
 
@@ -9,7 +10,9 @@ module.exports = function(message,args) {
   if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
     StartType(message)
 
-    RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + args[1],function(data){
+    let thing2search = message.content.replace('p!inspect-avatar ', '').replace(/ /g, '%20')
+
+    RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + thing2search,function(data){
 
       if (typeof(data) == "undefined") { 
         message.channel.send("This user doesn't exist or API failed!")

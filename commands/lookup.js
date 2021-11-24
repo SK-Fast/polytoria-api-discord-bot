@@ -6,11 +6,15 @@ module.exports = function(message,args) {
   const StartType = require("../bot_modules/TypingService.js")
   const getRandomInt = require("../bot_modules/RandomService.js")
 
+
   if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
+  let thing2search = message.content.replace('p!lookup ', '').replace(/ /g, '%20')
+  console.log(thing2search)
+
     StartType(message)
 
 
-      RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + args[1],function(data){
+      RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + thing2search,function(data){
         if (typeof(data) == "undefined") { 
           message.channel.send("This user doesn't exist or API failed!")
           message.channel.stopTyping();
