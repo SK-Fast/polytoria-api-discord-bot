@@ -53,6 +53,10 @@ const CommandsRequire = {
   "super-secret-command": require("./commands/super-secret-command.js"),
   "random-banner": require("./commands/random-banner.js"),
   "rb": require("./commands/random-banner.js"),
+  "invite": require("./commands/invite.js"),
+  "inv": require("./commands/invite.js"),
+  "information": require("./commands/information.js"),
+  "info": require("./commands/information.js"),
 }
 
 /////////////////////////////
