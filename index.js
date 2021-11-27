@@ -97,7 +97,7 @@ client.on("message", message => {
 
 
   if (CommandsRequire[command]) {
-    CommandsRequire[command](message,args)
+    CommandsRequire[command](message,args,{Prefix: prefix})
     
   }
 
