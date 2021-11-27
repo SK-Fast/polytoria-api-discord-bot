@@ -57,6 +57,7 @@ const CommandsRequire = {
   "inv": require("./commands/invite.js"),
   "information": require("./commands/information.js"),
   "info": require("./commands/information.js"),
+  "level": require("./commands/level.js"),
 }
 
 /////////////////////////////
