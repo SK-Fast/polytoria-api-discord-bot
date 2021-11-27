@@ -10,13 +10,17 @@
   "author": "DevPixels",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.24.0",
+     "axios": "^0.24.0",
+    "date-diff": "^1.0.2",
+    "discord-threads": "^1.0.2",
     "discord.js": "^12.5.3",
     "discord.js-pagination": "^1.0.3",
     "dotenv": "^10.0.0",
     "is-nan": "^1.3.2",
     "node-fetch": "^3.0.0",
-    "nodemon": "^2.0.14",
-    "slash-commands": "^1.5.0"
+    "nodemon": "^2.0.15",
+    "slash-commands": "^1.5.0",
+    "string-progressbar": "^1.0.4",
+    "timestamp-conv": "^2.2.0"
   }
 }
