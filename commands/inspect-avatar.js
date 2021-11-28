@@ -1,7 +1,7 @@
 const {Client,MessageEmbed,Attachment} = require("discord.js")
 const { DiscordInteractions } = require("slash-commands");
 
-module.exports = function(message,args) {
+module.exports = function(message,args,botinfo) {
 
   const {RequestAPIJSON,RequestAPINormal,AxiosRequestAPIJSON} = require("../bot_modules/FetchService.js")
   const StartType = require("../bot_modules/TypingService.js")
@@ -10,8 +10,8 @@ module.exports = function(message,args) {
   if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
     StartType(message)
 
-    let thing2search = message.content.replace('p!inspect-avatar ', '').replace(/ /g, '%20')
-
+    let thing2search = message.content.replace(botinfo["Prefix"] + 'inspect-avatar ', '').replace(/ /g, '%20')
+  console.log(thing2search)
     RequestAPIJSON("https://api.polytoria.com/v1/users/getbyusername?username=" + thing2search,function(data){
 
       if (typeof(data) == "undefined") { 
@@ -57,12 +57,12 @@ module.exports = function(message,args) {
               hatnamesarray.push({"ItemName": "Unable to load Name", "ItemID": "1"})
 
             } else {
-              hatnamesarray.push({"ItemName": data3["name"], "ItemID": data3["id"]})
+              hatnamesarray.push({"ItemName": data3["Name"], "ItemID": data3["ID"]})
 
-              if (data3["currency"] == "Studs") {
-                StudsWasted = StudsWasted + parseInt(parseInt(data3["price"]))
+              if (data3["Currency"] == "Studs") {
+                StudsWasted = StudsWasted + parseInt(parseInt(data3["Price"]))
               } else {
-                BrickWasted = BrickWasted + parseInt(parseInt(data3["price"]))
+                BrickWasted = BrickWasted + parseInt(parseInt(data3["Price"]))
               }
             }
           })/*} else {
@@ -123,7 +123,7 @@ module.exports = function(message,args) {
               embed1.addField("Wearables",processbodycatalog,false)
               embed1.addField("Body Colors",proceessbodycolors,false)
               embed1.addField("Money Wasted",`**${StudsWasted}** <:stud:905987085347983411> **${BrickWasted}** <:brick:905987077995376640>`,false)
-              embed1.setFooter("Money wasted might be inaccurate due to price changes")
+              embed1.setFooter("Money wasted might be inaccurate due to Price changes")
               message.channel.send("",embed1)
               message.channel.stopTyping();
             }
@@ -134,13 +134,13 @@ module.exports = function(message,args) {
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Head"],function(data3,statuscode2){
                   processhead = data3["Head"]
-                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+                  if (parseInt(data3["Price"]) == parseInt(data3["price_alt"])) { 
 
                    } else {
-                  if (data3["currency"] == "Studs") {
-                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  if (data3["Currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["Price"])
                   } else {
-                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                    BrickWasted = BrickWasted + parseInt(data3["Price"])
                   }}
                   catalogprocess7()
                 })
@@ -152,14 +152,14 @@ module.exports = function(message,args) {
                 catalogprocess6()
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["TShirt"],function(data3,statuscode2){
-                  processtshirt = data3["name"]
-                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+                  processtshirt = data3["Name"]
+                  if (parseInt(data3["Price"]) == parseInt(data3["price_alt"])) { 
 
                    } else {
-                  if (data3["currency"] == "Studs") {
-                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  if (data3["Currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["Price"])
                   } else {
-                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                    BrickWasted = BrickWasted + parseInt(data3["Price"])
                   }}
                   catalogprocess6()
                 })
@@ -171,14 +171,14 @@ module.exports = function(message,args) {
                 catalogprocess5()
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Pants"],function(data3,statuscode2){
-                  processpants = data3["name"]
-                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+                  processpants = data3["Name"]
+                  if (parseInt(data3["Price"]) == parseInt(data3["price_alt"])) { 
 
                    } else {
-                  if (data3["currency"] == "Studs") {
-                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  if (data3["Currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["Price"])
                   } else {
-                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                    BrickWasted = BrickWasted + parseInt(data3["Price"])
                   }}
                   catalogprocess5()
                 })
@@ -190,14 +190,14 @@ module.exports = function(message,args) {
                 catalogprocess4()
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Shirt"],function(data3,statuscode2){
-                  processshirt = data3["name"]
-                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+                  processshirt = data3["Name"]
+                  if (parseInt(data3["Price"]) == parseInt(data3["price_alt"])) { 
 
                    } else {
-                  if (data3["currency"] == "Studs") {
-                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  if (data3["Currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["Price"])
                   } else {
-                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                    BrickWasted = BrickWasted + parseInt(data3["Price"])
                   }}
                   catalogprocess4()
                 })
@@ -209,14 +209,14 @@ module.exports = function(message,args) {
                 catalogprocess3()
               } else {
                 RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Face"],function(data3,statuscode2){
-                  processface = data3["name"]
-                  if (parseInt(data3["price"]) == parseInt(data3["price_alt"])) { 
+                  processface = data3["Name"]
+                  if (parseInt(data3["Price"]) == parseInt(data3["price_alt"])) { 
 
                    } else {
-                  if (data3["currency"] == "Studs") {
-                    StudsWasted = StudsWasted + parseInt(data3["price"])
+                  if (data3["Currency"] == "Studs") {
+                    StudsWasted = StudsWasted + parseInt(data3["Price"])
                   } else {
-                    BrickWasted = BrickWasted + parseInt(data3["price"])
+                    BrickWasted = BrickWasted + parseInt(data3["Price"])
                   }}
                   catalogprocess3()
                 })
@@ -227,11 +227,11 @@ module.exports = function(message,args) {
               catalogprocess2()
             } else {
               RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + WearableArray["Tool"],function(data3,statuscode2){
-                processtool = data3["name"]
-                if (data3["currency"] == "Studs") {
-                  StudsWasted = StudsWasted + parseInt(data3["price"])
+                processtool = data3["Name"]
+                if (data3["Currency"] == "Studs") {
+                  StudsWasted = StudsWasted + parseInt(data3["Price"])
                 } else {
-                  BrickWasted = BrickWasted + parseInt(data3["price"])
+                  BrickWasted = BrickWasted + parseInt(data3["Price"])
                 }
                 catalogprocess2()
               })
