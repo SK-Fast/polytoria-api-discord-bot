@@ -1,13 +1,72 @@
-const {Client,MessageEmbed,Attachment} = require("discord.js")
+const {Client,MessageEmbed,MessageAttachment} = require("discord.js")
+const { createCanvas, loadImage, registerFont } = require('canvas')
 const Converter = require('timestamp-conv');
-const progressbar = require('string-progressbar');
 
 function monthDiff(d1, d2) {
-  var months;
-  months = (d2.getFullYear() - d1.getFullYear()) * 12;
-  months -= d1.getMonth();
-  months += d2.getMonth();
-  return months <= 0 ? 0 : months;
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+  }
+
+function getLines(ctx, text, maxWidth) {
+    var words = text.split(" ");
+    var lines = [];
+    var currentLine = words[0];
+
+    for (var i = 1; i < words.length; i++) {
+        var word = words[i];
+        var width = ctx.measureText(currentLine + " " + word).width;
+        if (width < maxWidth) {
+            currentLine += " " + word;
+        } else {
+            lines.push(currentLine);
+            currentLine = word;
+        }
+    }
+    lines.push(currentLine);
+    return lines;
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function ProcessLevel(data,CallBackFunc) {
+    const {RequestAPIJSON,RequestAPINormal,AxiosRequestAPIJSON} = require("../bot_modules/FetchService.js")
+
+    let AccountAgeMonth = 0
+    /*
+    let JoinDataData = timestampToDate(data["JoinedAt"],'yyyy:MM:dd:HH:mm:ss')
+    let JoinDateArray = JoinDataData.split(":");
+    let LastSeenData = timestampToDate(data["LastSeenAt"],'yyyy:MM:dd:HH:mm:ss')
+    console.log(JoinDataData)
+    console.log(LastSeenData)
+    let LaseSeenArray = LastSeenData.split(":");
+    */
+    let JoinDateTime = new Converter.timestamp(data["JoinedAt"])
+    let LastseenTime = new Converter.timestamp(data["LastSeenAt"])
+    let JoinDateDate = new Date(JoinDateTime.getYear(),JoinDateTime.getMonth(),JoinDateTime.getDay())
+    let LastSeenDate = new Date(LastseenTime.getYear(),LastseenTime.getMonth(),LastseenTime.getDay())
+
+    AccountAgeMonth = monthDiff(JoinDateDate,LastSeenDate)
+
+    RequestAPIJSON("https://api.polytoria.com/v1/users/friends?id=" + data["ID"],function(data2){
+      let FriendCountRounded = 10 * data2["Pages"]
+
+      const result = 0 //60 * ((-1/((1.2*document.getElementById('id3').value/5000)+1)+1));
+      const result2 = 12 * ((-1/((1*AccountAgeMonth)+0.4)+1));
+      const result3 = 12 * ((-1/((FriendCountRounded/100)+1)+1));
+      const result4 = 8 * ((-1/((data["ForumPosts"]/25)+1)+1));
+      const result5 = 15 * ((-1/((data["ProfileViews"]/1500)+1)+1));
+      const result6 = 10 * ((-1/((data["TradeValue"]/30000)+1)+1));              
+      const result7 = 10 * ((-1/((data["ItemSales"]/3)+1)+1));              
+  
+      let final = result+result2+result3+result4+result5+result6+result7
+      final = Math.round(final)
+
+      CallBackFunc(final,"???",Math.round(result4),Math.round(result6 + result7),Math.round(result3 + result5 + result6),AccountAgeMonth,FriendCountRounded)
+    })
 }
 
 module.exports = function(message,args,botinfo) {
@@ -16,10 +75,8 @@ module.exports = function(message,args,botinfo) {
   const StartType = require("../bot_modules/TypingService.js")
   const getRandomInt = require("../bot_modules/RandomService.js")
 
-  const botprefix = botinfo["Prefix"]
-
   if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
-  let thing2search = message.content.replace(botprefix + 'level ', '').replace(/ /g, '%20')
+  let thing2search = message.content.replace(botinfo["Prefix"] + 'card ', '').replace(/ /g, '%20')
   console.log(thing2search)
 
     StartType(message)
@@ -39,86 +96,114 @@ module.exports = function(message,args,botinfo) {
           return
         }
 
-        let AccountAgeMonth = 0
-        /*
-        let JoinDataData = timestampToDate(data["JoinedAt"],'yyyy:MM:dd:HH:mm:ss')
-        let JoinDateArray = JoinDataData.split(":");
-        let LastSeenData = timestampToDate(data["LastSeenAt"],'yyyy:MM:dd:HH:mm:ss')
-        console.log(JoinDataData)
-        console.log(LastSeenData)
-        let LaseSeenArray = LastSeenData.split(":");
-        */
-      
-        let JoinDateTime = new Converter.timestamp(data["JoinedAt"]);
-        let LastseenTime = new Converter.timestamp(data["LastSeenAt"]);
-        let JoinDateDate = new Date(JoinDateTime.getYear(),JoinDateTime.getMonth(),JoinDateTime.getDay())
-        let LastSeenDate = new Date(LastseenTime.getYear(),LastseenTime.getMonth(),LastseenTime.getDay())
+        const canvas = createCanvas(500, 700)
+        const ctx = canvas.getContext('2d')
 
-        AccountAgeMonth = monthDiff(JoinDateDate,LastSeenDate)
-        console.log(AccountAgeMonth)
+        registerFont('bot_assets/fonts/Comfortaa-Bold.ttf', { family: 'comfortaa_bold' })
 
-        RequestAPIJSON("https://api.polytoria.com/v1/users/friends?id=" + data["ID"],function(data2){
-          let FriendCountRounded = 10 * data2["Pages"]
+        loadImage('https://i.imgur.com/4KCSvTb.png').then((ribbi_img) => {
 
-          const result = 0 //60 * ((-1/((1.2*document.getElementById('id3').value/5000)+1)+1));
-          const result2 = 12 * ((-1/((1*AccountAgeMonth)+0.4)+1));
-          const result3 = 12 * ((-1/((FriendCountRounded/100)+1)+1));
-          const result4 = 8 * ((-1/((data["ForumPosts"]/25)+1)+1));
-          const result5 = 15 * ((-1/((data["ProfileViews"]/1500)+1)+1));
-          const result6 = 10 * ((-1/((data["TradeValue"]/30000)+1)+1));              
-          const result7 = 10 * ((-1/((data["ItemSales"]/3)+1)+1));              
-      
-          let final = result+result2+result3+result4+result5+result6+result7
-          final = Math.round(final)
+            ctx.drawImage(ribbi_img,-14.6,57.7,354,174)
+            
+            loadImage('https://polytoria.com/assets/thumbnails/avatars/' + data["AvatarHash"] + '.png').then((avatar_image) => {
+                ctx.drawImage(avatar_image,156,22,358,358)
+                
 
-          let level2 = ""
-          let ProcessImg = "https://cdn.discordapp.com/attachments/905650109382004770/914068492385407026/15lower.png"
+                    loadImage('https://i.imgur.com/8PamD2O.png').then((image) => {
+                        ctx.drawImage(image,0,227,497,471)
 
-          if (final > 15) {
-            level2 =  "(Above Average)"
-            ProcessImg = "https://cdn.discordapp.com/attachments/905650109382004770/914069399709839380/A3FwlG3nN7xpAAAAAElFTkSuQmCC.png"
-            if (final > 50) {
-              level2 = "(Insane)"
-              ProcessImg = "https://cdn.discordapp.com/attachments/905650109382004770/914069071358746654/50more.png"
+                        ctx.font = '700 30px comfortaa_bold';
 
-                if (final == 69) {
-                  level2 = "(Nice)"
-                  ProcessImg = "https://cdn.discordapp.com/attachments/905650109382004770/914068492767076352/69.png"
+                        ctx.fillStyle = '#ffffff';
+
+                        ctx.fillText(data["Username"], 28, 340);
+                        
+                        ctx.fillStyle = '#d9d9d9';
+                        ctx.font = '15px comfortaa_bold';
+
+                        ctx.fillText("#" + data["ID"], 28, 360);
+
+                        ctx.font = '17px comfortaa_bold';
+                        ctx.fillStyle = '#ffffff';
+
+                        let ProcessDesc = data["Description"]
+                        if (data["Description"] = "") {
+                            ProcessDesc = "No description set, boring..."
+                        }
+
+                        let lines = getLines(ctx,ProcessDesc.replace(/\r?\n|\r/, " "),441)
+                        let Desc_CurrentXPos = 380
+                        let linescount = 0
+                        
+                        lines.forEach(function (item, index) {
+                            if (linescount < 2) {
+                                linescount = linescount + 1
+                                if (linescount < 2) {
+                                    ctx.fillText(item, 28, Desc_CurrentXPos);
+                                } else {
+                                    ctx.fillText(item + "...", 28, Desc_CurrentXPos);
+                                }
+                                Desc_CurrentXPos = Desc_CurrentXPos + 23
+                            }
+                          });
+
+                          ctx.font = '23px comfortaa_bold';
+                          ctx.fillStyle = '#ffffff';
+
+                          ProcessLevel(data,function(level,b,e,s,u,a,f) {
+                            ctx.fillText(level, 45, 505);
+                            ctx.font = '35px comfortaa_bold';
+
+                            ctx.fillText(level, 110, 515);
+
+                            ctx.font = '14px comfortaa_bold';
+                            ctx.fillStyle = '#ffaf45';
+                            ctx.fillText(b, 213, 513);
+
+                            ctx.fillStyle = '#85daff';
+                            ctx.fillText(e, 275, 513);
+
+                            ctx.fillStyle = '#a03bff';
+                            ctx.fillText(s, 337, 513);
+
+                            ctx.fillStyle = '#53ff72';
+                            ctx.fillText(u, 410, 513);
+
+                            ctx.textAlign = "center";
+                            ctx.fillStyle = '#ffffff';
+                            ctx.font = '35px comfortaa_bold';
+
+                            ctx.fillText(f, 70, 620);
+                            ctx.fillText(a, 225, 620);
+                            ctx.fillText(numberWithCommas(data["TradeValue"]), 405, 620);
+
+                          
+                            ctx.fillStyle = '#2599ff';
+
+                            if (level >= 50) {
+                              ctx.fillRect(85, 525, 290, 14);
+
+                            } else if(level >= 35) {
+                              ctx.fillRect(85, 525, 161, 14);
+                            } else if(level >= 15) {
+                              ctx.fillRect(85, 525, 95, 14);
+
+                            } else {
+                              ctx.fillRect(85, 525, 1, 14);
+                            }
 
 
-                } else if (final > 75) {
-                  level2 = "(God)"
-                  ProcessImg = "https://cdn.discordapp.com/attachments/905650109382004770/914068492574130216/75.png"
 
-                }
-            }
-        } else {
-          level2 = "(Noob)"
-          ProcessImg = "https://cdn.discordapp.com/attachments/905650109382004770/914068492385407026/15lower.png"
-        }
+                            let attachment = new MessageAttachment(canvas.toBuffer(), 'Card.png')
+        
+                            message.channel.send("",attachment)
+                            message.channel.stopTyping();
+                          })
+                          
+                })
+           
+        })})
 
-        let LevelBar = progressbar.splitBar(76, final,8,"▬","<:Online:906010400972234784>");
-          
-          const embed1 = new MessageEmbed()
-          .setColor('#ff6666')
-          .setTitle("⭐ " + data["Username"] + " s' Level")
-          .setDescription(data["Username"] + " s' level is **" + final + level2 + "** 🎉\n\n<:Forum:914059872105021441> Forum level is.. **" + Math.round(result4) + "**\n<:Shop:914106876143230976> Economy level is... **" + Math.round(result6 + result7) + "**\n<:Users:914059858276409364> Fame level is... **" + Math.round(result3 + result5 + result6) + "**\n\nNoob <:noob:914061568780673025> " + LevelBar[0] + " Pro <:usd:914061652809359381>\n<:Online:906010400972234784> is " + data["Username"])
-          .addFields(
-            { name: 'Forum Posts', value: data["ForumPosts"],inline: true },
-            { name: 'Friend count', value: `⁓ ${FriendCountRounded}`,inline: true },
-            //{ name: 'Place Visits', value: `idk`,inline: true },
-            { name: 'Account Age(Month)', value: AccountAgeMonth,inline: true },
-            { name: 'Trade Value', value: data["TradeValue"],inline: true },
-            { name: 'Profile views', value: data["ProfileViews"],inline: true },
-            { name: 'Item Sales', value: data["ItemSales"],inline: true },
-            )
-          .setThumbnail(ProcessImg)
-            .setFooter("This one use it's calculation system, So the result might not be the same as http://polytorialevel.great-site.net/")
-  
-          message.channel.send("",embed1)
-          message.channel.stopTyping();
-  
-      })
-       
-      })
+
+    })
 }
