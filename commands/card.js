@@ -10,6 +10,10 @@ function monthDiff(d1, d2) {
     return months <= 0 ? 0 : months;
   }
 
+  function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
+
 function getLines(ctx, text, maxWidth) {
     var words = text.split(" ");
     var lines = [];
@@ -124,10 +128,9 @@ module.exports = function(message,args,botinfo) {
                 ProcessDesc = "No description set, boring..."
             }
   
-            let lines = getLines(ctx,ProcessDesc.replace(/\r?\n|\r/, " "),441)
+            let lines = getLines(ctx,replaceAll(ProcessDesc, /\r?\n|\r/, " ")            ,441)
             let Desc_CurrentXPos = 380
             let linescount = 0
-            
             lines.forEach(function (item, index) {
                 if (linescount < 2) {
                     linescount = linescount + 1
