@@ -58,6 +58,7 @@ const CommandsRequire = {
   "information": require("./commands/information.js"),
   "info": require("./commands/information.js"),
   "level": require("./commands/level.js"),
+  "version": require("./commands/version.js"),
 }
 
 /////////////////////////////
