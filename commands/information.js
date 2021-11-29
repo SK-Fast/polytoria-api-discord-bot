@@ -7,9 +7,9 @@ module.exports = function(message) {
     .setURL('https://github.com/SK-Fast/polytoria-api-discord-bot')
      .setColor('#fe5953')
        .setTitle('Polytoria Community Bot')
-       .addField("Version", "Running: Version 1.0.7")
+       .addField("Version", "Running: Version 1.0.9")
       .addField("Open-sourced project", "This project is open-sourced. Tap the link above to view the repository.")
-      .addField("Changelog for 1.0.7", "Coming Soon")
+      .addField("Changelog for 1.0.9", "Coming Soon")
         .setFooter("Made by DevPixels and bags. Contact us at DevPixels#5746, StarManTheGamer#0001")
 
 
