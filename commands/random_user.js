@@ -1,4 +1,5 @@
 const {Client,MessageEmbed,Attachment} = require("discord.js")
+const Converter = require('timestamp-conv');
 
 module.exports = function(message,args) {
 
@@ -74,8 +75,8 @@ module.exports = function(message,args) {
         .setDescription(RankData + AnotherData + "\n" + data["Description"])
         .addFields(
           { name: 'UserId', value: data["ID"],inline: true },
-          { name: 'Joined at', value: `<t:${data["JoinedAt"]}>`,inline: true },
-          { name: 'Last seen', value: `<t:${data["LastSeenAt"]}>`,inline: false },
+          { name: 'Joined at', value: new Converter.timestamp(data["JoinedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
+          { name: 'Last seen', value: new Converter.timestamp(data["LastSeenAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: false },
           { name: 'Trade Value', value: data["TradeValue"],inline: true },
         )
         .setThumbnail('https://polytoria.com/assets/thumbnails/avatars/headshots/' + data["AvatarHash"] + ".png")
