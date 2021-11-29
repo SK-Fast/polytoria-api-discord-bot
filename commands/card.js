@@ -101,108 +101,121 @@ module.exports = function(message,args,botinfo) {
 
         registerFont('bot_assets/fonts/Comfortaa-Bold.ttf', { family: 'comfortaa_bold' })
 
+        function ContinueWorking(HasError) {
+          loadImage('https://i.imgur.com/8PamD2O.png').then((image) => {
+            ctx.drawImage(image,0,227,497,471)
+  
+            ctx.font = '700 30px comfortaa_bold';
+  
+            ctx.fillStyle = '#ffffff';
+  
+            ctx.fillText(data["Username"], 28, 340);
+            
+            ctx.fillStyle = '#d9d9d9';
+            ctx.font = '15px comfortaa_bold';
+  
+            ctx.fillText("#" + data["ID"], 28, 360);
+  
+            ctx.font = '17px comfortaa_bold';
+            ctx.fillStyle = '#ffffff';
+  
+            let ProcessDesc = data["Description"]
+            if (data["Description"] = "") {
+                ProcessDesc = "No description set, boring..."
+            }
+  
+            let lines = getLines(ctx,ProcessDesc.replace(/\r?\n|\r/, " "),441)
+            let Desc_CurrentXPos = 380
+            let linescount = 0
+            
+            lines.forEach(function (item, index) {
+                if (linescount < 2) {
+                    linescount = linescount + 1
+                    if (linescount < 2) {
+                        ctx.fillText(item, 28, Desc_CurrentXPos);
+                    } else {
+                        ctx.fillText(item + "...", 28, Desc_CurrentXPos);
+                    }
+                    Desc_CurrentXPos = Desc_CurrentXPos + 23
+                }
+              });
+  
+              ctx.font = '23px comfortaa_bold';
+              ctx.fillStyle = '#ffffff';
+  
+              ProcessLevel(data,function(level,b,e,s,u,a,f) {
+                ctx.fillText(level, 45, 505);
+                ctx.font = '35px comfortaa_bold';
+  
+                ctx.fillText(level, 110, 515);
+  
+                ctx.font = '14px comfortaa_bold';
+                ctx.fillStyle = '#ffaf45';
+                ctx.fillText(b, 213, 513);
+  
+                ctx.fillStyle = '#85daff';
+                ctx.fillText(e, 275, 513);
+  
+                ctx.fillStyle = '#a03bff';
+                ctx.fillText(s, 337, 513);
+  
+                ctx.fillStyle = '#53ff72';
+                ctx.fillText(u, 410, 513);
+  
+                ctx.textAlign = "center";
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '35px comfortaa_bold';
+  
+                ctx.fillText(f, 70, 620);
+                ctx.fillText(a, 225, 620);
+                ctx.fillText(numberWithCommas(data["TradeValue"]), 405, 620);
+  
+              
+                ctx.fillStyle = '#2599ff';
+  
+                if (level >= 50) {
+                  ctx.fillRect(85, 525, 290, 14);
+  
+                } else if(level >= 35) {
+                  ctx.fillRect(85, 525, 161, 14);
+                } else if(level >= 15) {
+                  ctx.fillRect(85, 525, 95, 14);
+  
+                } else {
+                  ctx.fillRect(85, 525, 1, 14);
+                }
+  
+  
+  
+                let attachment = new MessageAttachment(canvas.toBuffer(), 'Card.png')
+  
+                message.channel.send("",attachment)
+                message.channel.stopTyping();
+              })
+          })
+        }
+
+  
+
         loadImage('https://i.imgur.com/4KCSvTb.png').then((ribbi_img) => {
 
             ctx.drawImage(ribbi_img,-14.6,57.7,354,174)
             
             loadImage('https://polytoria.com/assets/thumbnails/avatars/' + data["AvatarHash"] + '.png').then((avatar_image) => {
                 ctx.drawImage(avatar_image,156,22,358,358)
+                ContinueWorking(true)
                 
 
-                    loadImage('https://i.imgur.com/8PamD2O.png').then((image) => {
-                        ctx.drawImage(image,0,227,497,471)
-
-                        ctx.font = '700 30px comfortaa_bold';
-
-                        ctx.fillStyle = '#ffffff';
-
-                        ctx.fillText(data["Username"], 28, 340);
-                        
-                        ctx.fillStyle = '#d9d9d9';
-                        ctx.font = '15px comfortaa_bold';
-
-                        ctx.fillText("#" + data["ID"], 28, 360);
-
-                        ctx.font = '17px comfortaa_bold';
-                        ctx.fillStyle = '#ffffff';
-
-                        let ProcessDesc = data["Description"]
-                        if (data["Description"] = "") {
-                            ProcessDesc = "No description set, boring..."
-                        }
-
-                        let lines = getLines(ctx,ProcessDesc.replace(/\r?\n|\r/, " "),441)
-                        let Desc_CurrentXPos = 380
-                        let linescount = 0
-                        
-                        lines.forEach(function (item, index) {
-                            if (linescount < 2) {
-                                linescount = linescount + 1
-                                if (linescount < 2) {
-                                    ctx.fillText(item, 28, Desc_CurrentXPos);
-                                } else {
-                                    ctx.fillText(item + "...", 28, Desc_CurrentXPos);
-                                }
-                                Desc_CurrentXPos = Desc_CurrentXPos + 23
-                            }
-                          });
-
-                          ctx.font = '23px comfortaa_bold';
-                          ctx.fillStyle = '#ffffff';
-
-                          ProcessLevel(data,function(level,b,e,s,u,a,f) {
-                            ctx.fillText(level, 45, 505);
-                            ctx.font = '35px comfortaa_bold';
-
-                            ctx.fillText(level, 110, 515);
-
-                            ctx.font = '14px comfortaa_bold';
-                            ctx.fillStyle = '#ffaf45';
-                            ctx.fillText(b, 213, 513);
-
-                            ctx.fillStyle = '#85daff';
-                            ctx.fillText(e, 275, 513);
-
-                            ctx.fillStyle = '#a03bff';
-                            ctx.fillText(s, 337, 513);
-
-                            ctx.fillStyle = '#53ff72';
-                            ctx.fillText(u, 410, 513);
-
-                            ctx.textAlign = "center";
-                            ctx.fillStyle = '#ffffff';
-                            ctx.font = '35px comfortaa_bold';
-
-                            ctx.fillText(f, 70, 620);
-                            ctx.fillText(a, 225, 620);
-                            ctx.fillText(numberWithCommas(data["TradeValue"]), 405, 620);
-
+                   
                           
-                            ctx.fillStyle = '#2599ff';
-
-                            if (level >= 50) {
-                              ctx.fillRect(85, 525, 290, 14);
-
-                            } else if(level >= 35) {
-                              ctx.fillRect(85, 525, 161, 14);
-                            } else if(level >= 15) {
-                              ctx.fillRect(85, 525, 95, 14);
-
-                            } else {
-                              ctx.fillRect(85, 525, 1, 14);
-                            }
-
-
-
-                            let attachment = new MessageAttachment(canvas.toBuffer(), 'Card.png')
-        
-                            message.channel.send("",attachment)
-                            message.channel.stopTyping();
-                          })
                           
+                }).catch(err => {
+                  message.channel.send("`Failure` `404` Please redraw your avatar to make your avatar appears.")
+                  ContinueWorking(false)
                 })
            
-        })})
+        })
+      
 
 
     })
