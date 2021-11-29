@@ -1,6 +1,7 @@
 const {Client,MessageEmbed,Attachment} = require("discord.js")
+const Converter = require('timestamp-conv');
 
-module.exports = function(message,args) {
+module.exports = function(message,args,botinfo) {
 
   const {RequestAPIJSON,RequestAPINormal,AxiosRequestAPIJSON} = require("../bot_modules/FetchService.js")
   const StartType = require("../bot_modules/TypingService.js")
@@ -8,7 +9,7 @@ module.exports = function(message,args) {
 
 
   if (!args[1]) { message.channel.send("Missing args 1 | Please type Username!"); return }
-  let thing2search = message.content.replace('p!lookup ', '').replace(/ /g, '%20')
+  let thing2search = message.content.replace(botinfo["Prefix"] + 'lookup ', '').replace(/ /g, '%20')
   console.log(thing2search)
 
     StartType(message)
@@ -52,13 +53,12 @@ module.exports = function(message,args) {
         .setDescription(RankData + AnotherData + "\n" + data["Description"])
         .addFields(
           { name: 'UserId', value: data["ID"],inline: true },
-          { name: 'Joined at', value: `<t:${data["JoinedAt"]}>`,inline: true },
-          { name: 'Last seen', value: `<t:${data["LastSeenAt"]}>`,inline: false },
+          { name: 'Joined at', value: new Converter.timestamp(data["JoinedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
+          { name: 'Last seen', value: new Converter.timestamp(data["LastSeenAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: false },
           { name: 'Trade Value', value: data["TradeValue"],inline: true },
         )
         .setThumbnail('https://polytoria.com/assets/thumbnails/avatars/headshots/' + data["AvatarHash"] + ".png")
           .setFooter('Replying to ' + message.author.tag + '(' + message.author.id + ')')
-
         message.channel.send("",embed1)
         message.channel.stopTyping();
 
