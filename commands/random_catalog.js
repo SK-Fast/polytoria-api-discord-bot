@@ -36,13 +36,8 @@ module.exports = function(message,args) {
         return
       }
 
-      if (data["moderation_status"] !== "ACCEPTED") {
-        DidAlittlerandomCatalog()
-        return
-      }
-
       const embed1 = new MessageEmbed()
-      .setTitle(data["name"])
+      .setTitle(data["Name"])
       .setURL("https://polytoria.com/shop/" + RandomizedGameId.toString())
       .setColor('#fe5953')
       .setImage('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId + '.png')
