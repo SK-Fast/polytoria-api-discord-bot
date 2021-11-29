@@ -59,6 +59,7 @@ const CommandsRequire = {
   "info": require("./commands/information.js"),
   "level": require("./commands/level.js"),
   "version": require("./commands/version.js"),
+  "card": require("./commands/card.js"),
 }
 
 /////////////////////////////
