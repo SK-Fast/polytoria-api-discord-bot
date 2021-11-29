@@ -38,6 +38,7 @@ let pages = [
             { name: 'random-banner', value: '└ Random Game Banners on Polytoria',inline: false },
     { name: 'information', value: '└ Information about the bot',inline: false },
         { name: 'invite', value: '└ Link to invite the bot to your server',inline: false },
+        { name: 'version', value: '└ Information about the bots support',inline: false },
     )
 
 ]
