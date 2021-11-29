@@ -48,8 +48,9 @@ module.exports = function(message,args,botinfo) {
         console.log(LastSeenData)
         let LaseSeenArray = LastSeenData.split(":");
         */
-        let JoinDateTime = new Converter.date(data["JoinedAt"])
-        let LastseenTime = new Converter.date(data["LastSeenAt"])
+      
+        let JoinDateTime = new Converter.timestamp(data["JoinedAt"]);
+        let LastseenTime = new Converter.timestamp(data["LastSeenAt"]);
         let JoinDateDate = new Date(JoinDateTime.getYear(),JoinDateTime.getMonth(),JoinDateTime.getDay())
         let LastSeenDate = new Date(LastseenTime.getYear(),LastseenTime.getMonth(),LastseenTime.getDay())
 
@@ -65,8 +66,9 @@ module.exports = function(message,args,botinfo) {
           const result4 = 8 * ((-1/((data["ForumPosts"]/25)+1)+1));
           const result5 = 15 * ((-1/((data["ProfileViews"]/1500)+1)+1));
           const result6 = 10 * ((-1/((data["TradeValue"]/30000)+1)+1));              
+          const result7 = 10 * ((-1/((data["ItemSales"]/3)+1)+1));              
       
-          let final = result+result2+result3+result4+result5+result6
+          let final = result+result2+result3+result4+result5+result6+result7
           final = Math.round(final)
 
           let level2 = ""
@@ -100,7 +102,7 @@ module.exports = function(message,args,botinfo) {
           const embed1 = new MessageEmbed()
           .setColor('#ff6666')
           .setTitle("⭐ " + data["Username"] + " s' Level")
-          .setDescription(data["Username"] + " s' level is **" + final + level2 + "** 🎉\n\n<:Forum:914059872105021441> Forum level is.. **" + Math.round(result4) + "**\n<:Users:914059858276409364> Fame level is... **" + Math.round(result3 + result5 + result6) + "**\n\n<:noob:914061568780673025> " + LevelBar[0] + " <:usd:914061652809359381>\n<:Online:906010400972234784> is " + data["Username"])
+          .setDescription(data["Username"] + " s' level is **" + final + level2 + "** 🎉\n\n<:Forum:914059872105021441> Forum level is.. **" + Math.round(result4) + "**\n<:Shop:914106876143230976> Economy level is... **" + Math.round(result6 + result7) + "**\n<:Users:914059858276409364> Fame level is... **" + Math.round(result3 + result5 + result6) + "**\n\nNoob <:noob:914061568780673025> " + LevelBar[0] + " Pro <:usd:914061652809359381>\n<:Online:906010400972234784> is " + data["Username"])
           .addFields(
             { name: 'Forum Posts', value: data["ForumPosts"],inline: true },
             { name: 'Friend count', value: `⁓ ${FriendCountRounded}`,inline: true },
@@ -108,9 +110,10 @@ module.exports = function(message,args,botinfo) {
             { name: 'Account Age(Month)', value: AccountAgeMonth,inline: true },
             { name: 'Trade Value', value: data["TradeValue"],inline: true },
             { name: 'Profile views', value: data["ProfileViews"],inline: true },
+            { name: 'Item Sales', value: data["ItemSales"],inline: true },
             )
           .setThumbnail(ProcessImg)
-            .setFooter('very cool bro')
+            .setFooter("This one use it's calculation system, So the result might not be the same as http://polytorialevel.great-site.net/")
   
           message.channel.send("",embed1)
           message.channel.stopTyping();
