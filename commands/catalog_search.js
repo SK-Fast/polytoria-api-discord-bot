@@ -26,7 +26,7 @@ module.exports = function(message,args) {
       let locatedthing = data[0]
 
       RequestAPIJSON("https://api.polytoria.com/v1/asset/info?id=" + locatedthing["id"],function(data2,statuscode2){
-        let proceesscreator = "[Creator Profile](https://polytoria.com/user/" + data2["creator"] + ")"
+        let proceesscreator = "[Creator Profile](https://polytoria.com/user/" + data2["CreatorID"] + ")"
 
         let processemoji = "<:stud:905987085347983411>"
   
@@ -49,17 +49,17 @@ module.exports = function(message,args) {
   
   
         const embed1 = new MessageEmbed()
-        .setTitle(data2["name"])
+        .setTitle(data2["Name"])
         .setURL("https://polytoria.com/shop/" + locatedthing["id"])
         .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + locatedthing["price"] + "\n\n" + buytext)
         .addFields(
-          { name: 'Created At', value: `<t:${data2["time_created"]}>`,inline: true },
-          { name: 'Updated At', value: `<t:${data2["time_updated"]}>`,inline: true },
-          { name: 'Sales', value: data2["sales"],inline: false },
-          { name: 'Favourites', value: data2["favourites"],inline: true },
+          { name: 'Created At', value: `<t:${data2["CreatedAt"]}>`,inline: true },
+          { name: 'Updated At', value: `<t:${data2["UpdatedAt"]}>`,inline: true },
+          { name: 'Sales', value: data2["Sales"],inline: false },
+          { name: 'Favourites', value: data2["Favorites"],inline: true },
           )
         .setColor(processcolor)
-        .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + data2["id"] + '.png')
+        .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + data2["ID"] + '.png')
   
         
         message.channel.send('',embed1)
