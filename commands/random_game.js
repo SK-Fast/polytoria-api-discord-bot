@@ -1,4 +1,5 @@
 const {Client,MessageEmbed,Attachment} = require("discord.js")
+const Converter = require('timestamp-conv');
 
 module.exports = function(message,args) {
 
@@ -61,8 +62,8 @@ module.exports = function(message,args) {
           .setURL("https://polytoria.com/games/" + RandomizedGameId.toString())
           .setDescription("*" + ProcessDescription + "*")
           .addFields(
-            { name: 'Created At', value: `${data["CreatedAt"]}`,inline: true },
-            { name: 'Updated At', value: `${data["UpdatedAt"]}`,inline: true },
+            { name: 'Created At', value: new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
+            { name: 'Updated At', value: new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
             )
           .setColor('#fe5953')
           .setImage(ProcessImage)
