@@ -39,7 +39,15 @@ let pages = [
     { name: 'information', value: '└ Information about the bot',inline: false },
         { name: 'invite', value: '└ Link to invite the bot to your server',inline: false },
         { name: 'version', value: '└ Information about the bots support',inline: false },
-    )
+    ),
+    new MessageEmbed()
+    .setColor('#fe5953')
+      .setTitle('Commands')
+     .setDescription('Prefix: `p!`')
+     .addFields(
+        { name: 'card', value: '└ Gives you information about you in an image',inline: false },
+    
+        )
 
 ]
 
