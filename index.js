@@ -65,6 +65,8 @@ const CommandsRequire = {
 
 /////////////////////////////
 
+let LastestMessageWithImage = {}
+
 process.on('uncaughtException', function (err) {
     console.log(err);
 }); 
@@ -85,7 +87,12 @@ function getRandomInt(max) {
 
 // On Message sent
 client.on("message", message => {
-
+	
+let Attachment = (message.attachments)
+  if (Attachment){
+    LastestMessageWithImage[message.guild.id] = Attachment.array()[0] 
+  }
+	
     if(message.author.bot) return; // Check if the author is bot
 
     if (!message.content.startsWith(prefix)) return; // Check if the message start with prefix
@@ -101,8 +108,8 @@ client.on("message", message => {
 
 
   if (CommandsRequire[command]) {
-    CommandsRequire[command](message,args,{Prefix: prefix})
-    
+    CommandsRequire[command](message,args,{Prefix: prefix,LastestImg:LastestMessageWithImage[message.guild.id]})
+    return
   }
 
   /*
