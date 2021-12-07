@@ -47,12 +47,17 @@ module.exports = function(message,args,botinfo) {
         }
   
         let buytext = "["+ buyemoji +"](https://polytoria.com/shop/" + locatedthing["id"] + ")"
+
+        let processprice = locatedthing["price"]
   
+        if (processprice < 0) {
+          processprice = "Off-sale"
+        }
   
         const embed1 = new MessageEmbed()
         .setTitle(data2["Name"])
         .setURL("https://polytoria.com/shop/" + locatedthing["id"])
-        .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + locatedthing["price"] + "\n\n" + buytext)
+        .setDescription(proceesscreator + "\n" + processmessage + "\n" + processemoji + " " + processprice + "\n\n" + buytext)
         .addFields(
           { name: 'Created At', value: `${new Converter.timestamp(data2["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/")}`,inline: true },
           { name: 'Updated At', value: `${new Converter.timestamp(data2["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/")}`,inline: true },
