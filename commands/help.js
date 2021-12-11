@@ -47,6 +47,7 @@ let pages = [
      .addFields(
         { name: 'card', value: '└ Gives you information about you in an image',inline: false },
         { name: 'guild', value: '└ Gives you information the Guild you search for',inline: false },
+        { name: 'game', value: '└ Gives you information the Game you search for',inline: false },
     
         )
 
