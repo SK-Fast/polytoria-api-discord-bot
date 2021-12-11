@@ -46,6 +46,7 @@ let pages = [
      .setDescription('Prefix: `p!`')
      .addFields(
         { name: 'card', value: '└ Gives you information about you in an image',inline: false },
+        { name: 'guild', value: '└ Gives you information the Guild you search for',inline: false },
     
         )
 
