@@ -31,10 +31,12 @@ module.exports = function(message,args) {
       .setURL("https://polytoria.com/games/" + data["ID"].toString())
       .setColor('#fe5953')
       .setThumbnail('https://polytoria.com/assets/thumbnails/games/' + data["ID"].toString() + '.png')
+      .setFooter('Replying to ' + message.author.tag + '(' + message.author.id + ')')
       .addFields(
         { name: 'Visits', value: data["Visits"],inline: true },
         { name: 'Likes', value: data["Likes"],inline: true },
         { name: 'Dislikes', value: data["Dislikes"],inline: true },
+        { name: 'Active Game', value: data["IsActive"],inline: true },
       )
       
 
