@@ -60,8 +60,9 @@ const CommandsRequire = {
   "level": require("./commands/level.js"),
   "version": require("./commands/version.js"),
   "card": require("./commands/card.js"),
-  "download-asset": require("./commands/download-asset.js"),
    "guild": require("./commands/guild.js"),
+   "download-asset": require("./commands/download-asset.js"),
+   "game": require("./commands/game.js"),
 }
 
 /////////////////////////////
