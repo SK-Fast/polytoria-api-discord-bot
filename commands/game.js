@@ -30,7 +30,6 @@ module.exports = function(message,args) {
       .setDescription(descdata)
       .setURL("https://polytoria.com/games/" + data["ID"].toString())
       .setColor('#fe5953')
-      .setThumbnail('https://polytoria.com/assets/thumbnails/games/' + data["ID"].toString() + '.png')
       .setFooter('Replying to ' + message.author.tag + '(' + message.author.id + ')')
       .addFields(
         { name: 'Visits', value: data["Visits"],inline: true },
@@ -43,21 +42,36 @@ module.exports = function(message,args) {
 
     RequestAPIJSON('https://api.polytoria.com/v1/users/user?id=' + data["CreatorID"].toString(),function(data2,statuscode2) {
 
-        let ownerdata = ""
+        RequestAPINormal('https://polytoria.com/assets/thumbnails/games/' + data["ID"] + '.png',function(data3,statuscode3) {
 
-        if (typeof(data2) == "undefined") {
-            ownerdata = "Unknown"
-        } else {
-            ownerdata = "[" + data2["Username"] + "](https://polytoria.com/user/" + data2["ID"] + ")"
-        }
-        embed1.addField("Creator",ownerdata,true)
-        embed1.addField("Created at",new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),false)
-        embed1.addField("Updated at",new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),true)
-
-        message.channel.send('',embed1)
-        message.channel.stopTyping();
+            let ProcessImage = 'https://polytoria.com/assets/thumbnails/games/' + data["ID"] + '.png'
   
-        return
+            if (statuscode3 == 404) {
+              ProcessImage = 'https://polytoria.com/assets/img/game_unavail.png'
+            }
+
+            console.log(ProcessImage)
+
+            embed1.setThumbnail(ProcessImage)
+
+            let ownerdata = ""
+
+            if (typeof(data2) == "undefined") {
+                ownerdata = "Unknown"
+            } else {
+                ownerdata = "[" + data2["Username"] + "](https://polytoria.com/user/" + data2["ID"] + ")"
+            }
+            embed1.addField("Creator",ownerdata,true)
+            embed1.addField("Created at",new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),false)
+            embed1.addField("Updated at",new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),true)
+    
+            message.channel.send('',embed1)
+            message.channel.stopTyping();
+      
+            return
+        })
+
+    
     })
 
   })
