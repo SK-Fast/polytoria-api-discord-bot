@@ -37,6 +37,7 @@ module.exports = function(message,args) {
         { name: 'Likes', value: data["Likes"],inline: true },
         { name: 'Dislikes', value: data["Dislikes"],inline: true },
         { name: 'Active Game', value: data["IsActive"],inline: true },
+        { name: 'Ratio percent', value: Math.round(data["Likes"] / (data["Likes"] + data["Dislikes"]) * 100) + "%",inline: true },
       )
       
 
@@ -51,7 +52,7 @@ module.exports = function(message,args) {
         }
         embed1.addField("Creator",ownerdata,true)
         embed1.addField("Created at",new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),false)
-        embed1.addField("Updated at",new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),false)
+        embed1.addField("Updated at",new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),true)
 
         message.channel.send('',embed1)
         message.channel.stopTyping();
