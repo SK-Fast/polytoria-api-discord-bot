@@ -63,6 +63,7 @@ const CommandsRequire = {
    "guild": require("./commands/guild.js"),
    "download-asset": require("./commands/download-asset.js"),
    "game": require("./commands/game.js"),
+   "random-guild": require("./commands/random_guild.js"),
 }
 
 /////////////////////////////
