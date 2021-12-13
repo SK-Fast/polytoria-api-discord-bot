@@ -112,7 +112,14 @@ let Attachment = (message.attachments)
 
   if (CommandsRequire[command]) {
     CommandsRequire[command](message,args,{Prefix: prefix,LastestImg:LastestMessageWithImage[message.guild.id]})
-    return
+		// Add Cooldown
+     talkedRecently.add(message.author.id);
+        setTimeout(() => {
+		// Remove After Cooldown ends
+          talkedRecently.delete(message.author.id);
+        }, CooldownTime);
+	  
+    
   }
 
   /*
@@ -125,20 +132,6 @@ let Attachment = (message.attachments)
   } */
 
 
-  if (command === "cookie") {
-    if (!message.guild) { return }
-
-      message.channel.send("🍪")
-  }
-
-
-
-	// Add Cooldown
-     talkedRecently.add(message.author.id);
-        setTimeout(() => {
-		// Remove After Cooldown ends
-          talkedRecently.delete(message.author.id);
-        }, CooldownTime);
   
 })
 
