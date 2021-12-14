@@ -110,6 +110,9 @@ let Attachment = (message.attachments)
   const args = message.content.trim().split(/ +/g);
   const command = args[0].slice(prefix.length).toLowerCase(); // case INsensitive, without prefix
 
+  if (command === "cookie") {
+    return message.channel.send("🍪")
+  }
 
   if (CommandsRequire[command]) {
     CommandsRequire[command](message,args,{Prefix: prefix,LastestImg:LastestMessageWithImage[message.guild.id]})
