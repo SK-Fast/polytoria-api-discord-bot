@@ -49,6 +49,7 @@ let pages = [
         { name: 'guild', value: '└ Gives you information the Guild you search for',inline: false },
         { name: 'game', value: '└ Gives you information the Game you search for',inline: false },
         { name: 'random-guild', value: '└ Gives you a random guild',inline: false },
+        { name: 'status', value: '└ Shows if the Polytoria API is online/offline or experiencing issues',inline: false },
         
     
         )
