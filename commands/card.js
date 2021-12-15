@@ -169,7 +169,7 @@ module.exports = function(message,args,botinfo) {
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '35px comfortaa_bold';
   
-                ctx.fillText(f, 70, 620);
+                ctx.fillText("~ " + f, 70, 620);
                 ctx.fillText(a, 225, 620);
                 ctx.fillText(numberWithCommas(data["TradeValue"]), 405, 620);
   
