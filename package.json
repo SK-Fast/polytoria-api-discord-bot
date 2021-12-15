@@ -10,7 +10,8 @@
   "author": "DevPixels",
   "license": "ISC",
   "dependencies": {
-     "axios": "^0.24.0",
+    "axios": "^0.24.0",
+    "canvas": "^2.8.0",
     "date-diff": "^1.0.2",
     "discord-threads": "^1.0.2",
     "discord.js": "^12.5.3",
