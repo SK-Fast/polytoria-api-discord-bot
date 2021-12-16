@@ -65,6 +65,7 @@ const CommandsRequire = {
    "game": require("./commands/game.js"),
    "random-guild": require("./commands/random_guild.js"),
    "status": require("./commands/status.js"),
+   "corpstats": require("./commands/corp.js"),
 }
 
 /////////////////////////////
