@@ -90,15 +90,30 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+function reactmsg(message,emoji) {
+  message.react(emoji).then().catch(err => {
+    reactmsg(message,emoji)
+  })
+
+}
+
 // On Message sent
 client.on("message", message => {
 	
-let Attachment = (message.attachments)
+  /*
+  let Attachment = (message.attachments)
   if (Attachment){
     LastestMessageWithImage[message.guild.id] = Attachment.array()[0] 
+    
   }
+  */
 	
     if(message.author.bot) return; // Check if the author is bot
+
+    if (message.attachments.size > 0 && message.channel.id == "921193405768417330"){
+      reactmsg(message,"👍")
+      reactmsg(message,"👎")
+    }
 
     if (!message.content.startsWith(prefix)) return; // Check if the message start with prefix
     if (!message.guild) { return } // Check if the message wasn't in DM
