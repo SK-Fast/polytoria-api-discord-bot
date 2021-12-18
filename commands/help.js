@@ -50,7 +50,13 @@ let pages = [
         { name: 'game', value: '└ Gives you information the Game you search for',inline: false },
         { name: 'random-guild', value: '└ Gives you a random guild',inline: false },
         { name: 'status', value: '└ Shows if the Polytoria API is online/offline or experiencing issues',inline: false },
-        
+     ),
+     new MessageEmbed()
+    .setColor('#fe5953')
+      .setTitle('Commands')
+     .setDescription('Prefix: `p!`')
+     .addFields(
+        { name: 'corpstats', value: '└ Shows you the information that is on the Corporate Website',inline: false },
     
         )
 
