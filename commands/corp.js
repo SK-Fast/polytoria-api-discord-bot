@@ -12,6 +12,7 @@ module.exports = function(message) {
 
         const embed1 = new MessageEmbed()
             .setColor('#1f2d41')
+            .setThumbnail('https://polytoria.com/assets/img/navbar-logo-dark.png')
             .setTitle('Polytoria statistics')
             .setURL('https://corp.polytoria.com/')
             .setDescription(`Players: ${players}\nGames: ${games}\nUser Created item: ${usercreated}`)
