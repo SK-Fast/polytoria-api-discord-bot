@@ -101,8 +101,8 @@ module.exports = function(message,args,botinfo) {
           
           const embed1 = new MessageEmbed()
           .setColor('#ff6666')
-          .setTitle("⭐ " + data["Username"] + " s' Level")
-          .setDescription(data["Username"] + " s' level is **" + final + level2 + "** 🎉\n\n<:Forum:914059872105021441> Forum level is.. **" + Math.round(result4) + "**\n<:Shop:914106876143230976> Economy level is... **" + Math.round(result6 + result7) + "**\n<:Users:914059858276409364> Fame level is... **" + Math.round(result3 + result5 + result6) + "**\n\nNoob <:noob:914061568780673025> " + LevelBar[0] + " Pro <:usd:914061652809359381>\n<:Online:906010400972234784> is " + data["Username"])
+          .setTitle("⭐ " + data["Username"] + " Level")
+          .setDescription(data["Username"] + " level is **" + final + level2 + "** 🎉\n\n<:Forum:914059872105021441> Forum level is.. **" + Math.round(result4) + "**\n<:Shop:914106876143230976> Economy level is... **" + Math.round(result6 + result7) + "**\n<:Users:914059858276409364> Fame level is... **" + Math.round(result3 + result5 + result6) + "**\n\nNoob <:noob:914061568780673025> " + LevelBar[0] + " Pro <:usd:914061652809359381>\n<:Online:906010400972234784> is " + data["Username"])
           .addFields(
             { name: 'Forum Posts', value: data["ForumPosts"],inline: true },
             { name: 'Friend count', value: `⁓ ${FriendCountRounded}`,inline: true },
