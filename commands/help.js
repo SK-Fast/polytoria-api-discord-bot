@@ -62,6 +62,8 @@ let pages = [
      .setDescription('Prefix: `p!`')
      .addFields(
         { name: 'corpstats', value: '└ Shows you the information that is on the Corporate Website',inline: false },
+        { name: 'discord', value: '└ Invite directly to our Discord Server',inline: false },
+        { name: 'download-asset', value: '└ Download any asset that you would like',inline: false },
     
         )
 
