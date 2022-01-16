@@ -61,11 +61,12 @@ const CommandsRequire = {
   "version": require("./commands/version.js"),
   "card": require("./commands/card.js"),
    "guild": require("./commands/guild.js"),
-   "download-asset": require("./commands/download-asset.js"),
    "game": require("./commands/game.js"),
    "random-guild": require("./commands/random_guild.js"),
+   "download-asset": require("./commands/download-asset.js"),
    "status": require("./commands/status.js"),
    "corpstats": require("./commands/corp.js"),
+   "discord": require("./commands/discord.js"),
 }
 
 /////////////////////////////
