@@ -1,6 +1,7 @@
 const {Client,MessageEmbed,Attachment} = require("discord.js")
+const Converter = require('timestamp-conv');
 
-module.exports = function(message,args) {
+module.exports = function(message,args,botinfo) {
 
   const {RequestAPIJSON,RequestAPINormal,AxiosRequestAPIJSON} = require("../bot_modules/FetchService.js")
   const StartType = require("../bot_modules/TypingService.js")
@@ -24,6 +25,7 @@ module.exports = function(message,args) {
       TriedToget = TriedToget + 1
       let RandomizedGameId = getRandomInt(idlimit) + 1
       RequestAPIJSON('https://api.polytoria.com/v1/asset/info?id=' + RandomizedGameId.toString(),function(data,statuscode) {
+        
       if (TriedToget >= 30) {
         message.channel.send("Uh oh... I couldn't find the catalog item because of I tried too many time!(Tried for 30 times). Please run the command again.")
         message.channel.stopTyping();
@@ -40,7 +42,13 @@ module.exports = function(message,args) {
       .setTitle(data["Name"])
       .setURL("https://polytoria.com/shop/" + RandomizedGameId.toString())
       .setColor('#fe5953')
-      .setImage('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId + '.png')
+      .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId + '.png')
+      .addFields(
+        { name: 'Sales', value: data["Sales"],inline: false },
+        { name: 'Favourites', value: data["Favorites"],inline: true },
+        { name: 'Created At', value: `${new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/")}`,inline: true },
+        { name: 'Updated At', value: `${new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/")}`,inline: true },
+      )
       .setFooter("Tried: " + TriedToget)
       message.channel.send('',embed1)
       message.channel.stopTyping();
