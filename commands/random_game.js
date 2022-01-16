@@ -51,7 +51,6 @@ module.exports = function(message,args) {
 
 
         RequestAPINormal('https://polytoria.com/assets/thumbnails/games/' + RandomizedGameId + '.png',function(data2,statuscode2) {
-
           let ProcessImage = 'https://polytoria.com/assets/thumbnails/games/' + RandomizedGameId + '.png'
 
           if (statuscode2 == 404) {
@@ -64,15 +63,23 @@ module.exports = function(message,args) {
           .addFields(
             { name: 'Created At', value: new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
             { name: 'Updated At', value: new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
-            )
+        { name: 'Visits', value: data["Visits"],inline: true },
+        { name: 'Likes', value: data["Likes"],inline: true },
+        { name: 'Dislikes', value: data["Dislikes"],inline: true },
+        { name: 'Active Game', value: data["IsActive"],inline: true },
+      )
+
+      
+      
           .setColor('#fe5953')
           .setImage(ProcessImage)
           .setFooter("Tried: " + TriedToget)
           message.channel.send('',embed1)
           message.channel.stopTyping();
           return
-      })
 
+          
+      })
     return
   })
   }
