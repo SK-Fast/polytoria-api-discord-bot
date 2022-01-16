@@ -106,7 +106,7 @@ module.exports = function(message,args,botinfo) {
         registerFont('bot_assets/fonts/Comfortaa-Bold.ttf', { family: 'comfortaa_bold' })
 
         function ContinueWorking(HasError) {
-          loadImage('https://i.imgur.com/k9xAd9J.png').then((image) => { // https://i.imgur.com/8PamD2O.png
+          loadImage('https://i.imgur.com/8PamD2O.png').then((image) => {
             ctx.drawImage(image,0,227,497,471)
   
             ctx.font = '700 30px comfortaa_bold';
@@ -174,7 +174,7 @@ module.exports = function(message,args,botinfo) {
                 ctx.fillText(numberWithCommas(data["TradeValue"]), 405, 620);
   
               
-                ctx.fillStyle = '#FF3838'; //#2599ff
+                ctx.fillStyle = '#2599ff';
   
                 if (level >= 50) {
                   ctx.fillRect(85, 525, 290, 14);
@@ -200,7 +200,7 @@ module.exports = function(message,args,botinfo) {
 
   
 
-        loadImage('https://i.imgur.com/d2SNFTr.png').then((ribbi_img) => { // https://i.imgur.com/4KCSvTb.png
+        loadImage('https://i.imgur.com/4KCSvTb.png').then((ribbi_img) => {
 
             ctx.drawImage(ribbi_img,-14.6,57.7,354,174)
             
