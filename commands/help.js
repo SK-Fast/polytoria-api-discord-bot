@@ -6,6 +6,7 @@ let pages = [
    new MessageEmbed()
 .setColor('#fe5953')
   .setTitle('Commands')
+  .setThumbnail('https://cdn.discordapp.com/icons/587167555068624915/4149b9aea50a0fd41260d71ac743407d.webp?size=128')
  .setDescription('Prefix: `p!`')
  .addFields(
     { name: 'catalog-search [Text to search]', value: '└ Search Catalog Item',inline: false },
@@ -19,6 +20,7 @@ let pages = [
     new MessageEmbed()
 .setColor('#fe5953')
   .setTitle('Commands')
+  .setThumbnail('https://cdn.discordapp.com/icons/587167555068624915/4149b9aea50a0fd41260d71ac743407d.webp?size=128')
  .setDescription('Prefix: `p!`')
  .addFields(
     { name: 'inspect-avatar [Username]', value: '└ Give details about user avatar',inline: false },
@@ -32,6 +34,7 @@ let pages = [
     new MessageEmbed()
 .setColor('#fe5953')
   .setTitle('Commands')
+  .setThumbnail('https://cdn.discordapp.com/icons/587167555068624915/4149b9aea50a0fd41260d71ac743407d.webp?size=128')
  .setDescription('Prefix: `p!`')
  .addFields(
        { name: 'level', value: '└ Fetch level(alternative of http://polytorialevel.great-site.net/)',inline: false },
@@ -43,6 +46,7 @@ let pages = [
     new MessageEmbed()
     .setColor('#fe5953')
       .setTitle('Commands')
+      .setThumbnail('https://cdn.discordapp.com/icons/587167555068624915/4149b9aea50a0fd41260d71ac743407d.webp?size=128')
      .setDescription('Prefix: `p!`')
      .addFields(
         { name: 'card', value: '└ Gives you information about you in an image',inline: false },
@@ -54,6 +58,7 @@ let pages = [
      new MessageEmbed()
     .setColor('#fe5953')
       .setTitle('Commands')
+      .setThumbnail('https://cdn.discordapp.com/icons/587167555068624915/4149b9aea50a0fd41260d71ac743407d.webp?size=128')
      .setDescription('Prefix: `p!`')
      .addFields(
         { name: 'corpstats', value: '└ Shows you the information that is on the Corporate Website',inline: false },
