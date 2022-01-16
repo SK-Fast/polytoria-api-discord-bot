@@ -3,7 +3,7 @@ const {Client,MessageEmbed,Attachment} = require("discord.js")
 module.exports = function(message) {
 
     const HelpEmbed = new MessageEmbed()
-    .setThumbnail('https://polytoria.com/assets/thumbnails/guilds/1.png')
+    .setThumbnail('https://cdn.discordapp.com/icons/587167555068624915/4149b9aea50a0fd41260d71ac743407d.webp?size=128')
     .setURL('https://github.com/SK-Fast/polytoria-api-discord-bot')
      .setColor('#fe5953')
        .setTitle('Polytoria Community Bot')
