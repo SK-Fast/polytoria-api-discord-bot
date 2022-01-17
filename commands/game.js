@@ -66,7 +66,6 @@ module.exports = function(message,args) {
             }
             embed1.addField("Creator",ownerdata,true)
             embed1.addField("Created at",new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),false)
-            embed1.addField("Updated at",new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/").toString(),true)
     
             message.channel.send('',embed1)
             message.channel.stopTyping();
