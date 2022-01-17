@@ -56,18 +56,23 @@ module.exports = function(message,args) {
           if (statuscode2 == 404) {
             ProcessImage = 'https://polytoria.com/assets/img/game_unavail.png'
           }
+
+          const calculatePercent = Math.round(data["Likes"] / (data["Likes"] + data["Dislikes"]) * 100)
+
           const embed1 = new MessageEmbed()
           .setTitle(data["Name"])
           .setURL("https://polytoria.com/games/" + RandomizedGameId.toString())
           .setDescription("*" + ProcessDescription + "*")
           .addFields(
-            { name: 'Created At', value: new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
-            { name: 'Updated At', value: new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
-        { name: 'Visits', value: data["Visits"],inline: true },
-        { name: 'Likes', value: data["Likes"],inline: true },
-        { name: 'Dislikes', value: data["Dislikes"],inline: true },
-        { name: 'Active Game', value: data["IsActive"],inline: true },
-      )
+            { name: 'Visits', value: data["Visits"],inline: true },
+            { name: 'Likes', value: data["Likes"],inline: true },
+            { name: 'Dislikes', value: data["Dislikes"],inline: true },
+            { name: 'Active Game', value: data["IsActive"],inline: true },
+            { name: 'Ratio percent', value: (isNaN(calculatePercent) == true ? "--" : calculatePercent.toLocaleString()),inline: true },
+            { name: 'Created At', value: `${new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/")}`,inline: true },
+            { name: 'Updated At', value: `${new Converter.timestamp(data["UpdatedAt"]).formatDay.replace(".", "/").replace(".", "/")}`,inline: true },
+            )
+          
 
       
       
