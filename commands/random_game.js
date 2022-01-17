@@ -37,7 +37,7 @@ module.exports = function(message,args) {
           return
         }
         
-        if (data["Active"] == false) {
+        if (data["IsActive"] == false) {
           DidAlittlerandomgame()
           return
         }
