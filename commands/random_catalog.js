@@ -40,6 +40,14 @@ module.exports = function(message,args,botinfo) {
 
       const embed1 = new MessageEmbed()
       .setTitle(data["Name"])
+      .addFields(
+        { name: 'Created At', value: new Converter.timestamp(data["CreatedAt"]).formatDay.replace(".", "/").replace(".", "/"),inline: true },
+        { name: 'Value', value: (data["Currency"] == "Studs" ? "<:stud:905987085347983411>" : "<:brick:905987077995376640>") + " " + data["Value"],inline: true },
+        { name: 'Sales', value: data["Sales"].toString(),inline: true },
+        { name: 'Favorites', value: data["Favorites"].toString(),inline: true },
+
+        )
+        .setDescription(data["Description"] == "" ? "*No Description Set*" : "*" + data["Description"] + "*")
       .setURL("https://polytoria.com/shop/" + RandomizedGameId.toString())
       .setColor('#fe5953')
       .setThumbnail('https://polytoria.com/assets/thumbnails/catalog/' + RandomizedGameId + '.png')
