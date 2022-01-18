@@ -12,6 +12,7 @@ module.exports = function(message,args) {
     Internal: 0,
     Corp: 0,
     Docs: 0,
+    Blog: 0,
   }
 
   function ProceedData() {
@@ -24,6 +25,7 @@ module.exports = function(message,args) {
  ${StatusData["Internal"].toString().startsWith("2") ? "<:check:920132963608457266>" : StatusData["Internal"] == 503 ? "<:warning:920132963461627964>" : "<:error:920132962887028788>"}  Internal API Status (${StatusData["Internal"]})
  ${StatusData["Corp"].toString().startsWith("2") ? "<:check:920132963608457266>" : StatusData["Corp"] == 503 ? "<:warning:920132963461627964>" : "<:error:920132962887028788>"}  Corporate Website (${StatusData["Corp"]})
  ${StatusData["Docs"].toString().startsWith("2") ? "<:check:920132963608457266>" : StatusData["Docs"] == 503 ? "<:warning:920132963461627964>" : "<:error:920132962887028788>"}  Documents Page (${StatusData["Docs"]})
+ ${StatusData["Blog"].toString().startsWith("2") ? "<:check:920132963608457266>" : StatusData["Blog"] == 503 ? "<:warning:920132963461627964>" : "<:error:920132962887028788>"}  Polytoria Blog (${StatusData["Blog"]})
  `)
 
  .setFooter("Something went wrong? Please report it here: https://github.com/SK-Fast/polytoria-api-discord-bot/issues/new")
@@ -46,11 +48,15 @@ module.exports = function(message,args) {
         fetch("https://docs.polytoria.com").then(interdata => {
           StatusData["Docs"] = interdata.status
 
+          fetch("https://blog.polytoria.com").then(interdata => {
+            StatusData["Blog"] = interdata.status
+
         ProceedData()
       })
     })
 
  })
+})
 })
 })
 }
