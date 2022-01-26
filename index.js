@@ -79,11 +79,9 @@ process.on('uncaughtException', function (err) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("p!help", {
-		type: "LISTENING",
-		url: "https://api.polytoria.com"
-	  });
-    console.log("ID: "+  client.user.id)
+	setInterval(async () => {
+		await client.user.setActivity(client.guilds.cache.reduce((a, guild) => a + guild.memberCount, 0).toLocaleString('en') + ' users | p!help', {type: 'WATCHING'})
+	}, 60000)
 })
 
 // Get Random number from 0 to max
